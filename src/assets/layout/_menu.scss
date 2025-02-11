@@ -90,7 +90,8 @@
                 border-radius: 4px;
             }
             &:hover {
-                background-color: var(--surface-hover);
+                // background-color: var(--surface-hover);
+                transition: transform .25s ease !important;
             }
 
             &:focus {
