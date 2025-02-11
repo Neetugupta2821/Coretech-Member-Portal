@@ -19,7 +19,7 @@ router.afterEach((to) => {
     document.body.classList.add(`${routeClass}`); // Add a custom class
     document.body.id = `${routeClass}`; // Add a custom ID (optional)
 });
-console.log("11-02-2025")
+console.log("Hello neetu gupta")
 const app = createApp(App);
 
 app.use(router);
