@@ -22,96 +22,111 @@ const router = createRouter({
                     component: () => import('@/views/Dashboard.vue')
                 },
                 {
-                    path: '/uikit/formlayout',
-                    name: 'formlayout',
-                    component: () => import('@/views/uikit/FormLayout.vue')
+                    path: '/news',
+                    name: 'news',
+                    component: () => import('@/views/NewsRoom.vue')
                 },
                 {
-                    path: '/uikit/input',
-                    name: 'input',
-                    component: () => import('@/views/uikit/InputDoc.vue')
+                    path: '/account',
+                    name: 'account',
+                    component: () => import('@/views/uikit/MyAccount.vue')
                 },
                 {
-                    path: '/uikit/button',
-                    name: 'button',
-                    component: () => import('@/views/uikit/ButtonDoc.vue')
+                    path: '/account/credit',
+                    name: 'credit',
+                    component: () => import('@/views/uikit/AccountBilling.vue')
                 },
                 {
-                    path: '/uikit/table',
-                    name: 'table',
-                    component: () => import('@/views/uikit/TableDoc.vue')
+                    path: '/service',
+                    name: 'service',
+                    component: () => import('@/views/services/ServiceOverview.vue')
                 },
                 {
-                    path: '/uikit/list',
-                    name: 'list',
-                    component: () => import('@/views/uikit/ListDoc.vue')
+                    path: '/offer',
+                    name: 'offer',
+                    component: () => import('@/views/services/OfferService.vue')
                 },
                 {
-                    path: '/uikit/tree',
-                    name: 'tree',
-                    component: () => import('@/views/uikit/TreeDoc.vue')
+                    path: '/offer/dedicated',
+                    name: 'dedicated',
+                    component: () => import('@/views/services/DedicatedServer.vue')
                 },
                 {
-                    path: '/uikit/panel',
-                    name: 'panel',
-                    component: () => import('@/views/uikit/PanelsDoc.vue')
+                    path: '/offer/addon/general',
+                    name: 'general',
+                    component: () => import('@/views/services/ServiceAddons.vue')
                 },
-
+                // Ddos Protections Routes
                 {
-                    path: '/uikit/overlay',
-                    name: 'overlay',
-                    component: () => import('@/views/uikit/OverlayDoc.vue')
-                },
-                {
-                    path: '/uikit/media',
-                    name: 'media',
-                    component: () => import('@/views/uikit/MediaDoc.vue')
+                    path: '/network/incidents',
+                    name: 'incidents',
+                    component: () => import('@/views/ddos/network/Incidents.vue')
                 },
                 {
-                    path: '/uikit/message',
-                    name: 'message',
-                    component: () => import('@/views/uikit/MessagesDoc.vue')
+                    path: '/network/flexrules',
+                    name: 'flexrules',
+                    component: () => import('@/views/ddos/network/Flexrules.vue')
                 },
                 {
-                    path: '/uikit/file',
-                    name: 'file',
-                    component: () => import('@/views/uikit/FileDoc.vue')
+                    path: '/network/flowrules',
+                    name: 'flowrules',
+                    component: () => import('@/views/ddos/network/Flowrules.vue')
                 },
                 {
-                    path: '/uikit/menu',
-                    name: 'menu',
-                    component: () => import('@/views/uikit/MenuDoc.vue')
+                    path: '/network/thresholds',
+                    name: 'thresholds',
+                    component: () => import('@/views/ddos/network/Thresholds.vue')
                 },
                 {
-                    path: '/uikit/charts',
-                    name: 'charts',
-                    component: () => import('@/views/uikit/ChartDoc.vue')
+                    path: '/network/routing',
+                    name: 'routing',
+                    component: () => import('@/views/ddos/network/Routing.vue')
                 },
                 {
-                    path: '/uikit/misc',
-                    name: 'misc',
-                    component: () => import('@/views/uikit/MiscDoc.vue')
+                    path: '/network/prefixlist',
+                    name: 'prefixlist',
+                    component: () => import('@/views/ddos/network/SourcePrefixList.vue')
                 },
                 {
-                    path: '/uikit/timeline',
-                    name: 'timeline',
-                    component: () => import('@/views/uikit/TimelineDoc.vue')
+                    path: '/network/geodefinition',
+                    name: 'geodefinition',
+                    component: () => import('@/views/ddos/network/GeoDefinition.vue')
                 },
                 {
-                    path: '/pages/empty',
-                    name: 'empty',
-                    component: () => import('@/views/pages/Empty.vue')
+                    path: '/website/certificate',
+                    name: 'certificate',
+                    component: () => import('@/views/ddos/website/Certificates.vue')
                 },
                 {
-                    path: '/pages/crud',
-                    name: 'crud',
-                    component: () => import('@/views/pages/Crud.vue')
+                    path: '/website/challenge',
+                    name: 'challenge',
+                    component: () => import('@/views/ddos/website/Challenge.vue')
                 },
                 {
-                    path: '/documentation',
-                    name: 'documentation',
-                    component: () => import('@/views/pages/Documentation.vue')
-                }
+                    path: '/website/vhost',
+                    name: 'vhost',
+                    component: () => import('@/views/ddos/website/VirtualHost.vue')
+                },
+                {
+                    path: '/customer/tickets',
+                    name: 'tickets',
+                    component: () => import('@/views/support/customer/MyTicket.vue')
+                },
+                {
+                    path: '/customer/newticket',
+                    name: 'newticket',
+                    component: () => import('@/views/support/customer/NewTicket.vue')
+                },
+                {
+                    path: '/customer/faq',
+                    name: 'faq',
+                    component: () => import('@/views/support/customer/Faq.vue')
+                },
+                {
+                    path: '/info/about',
+                    name: 'about',
+                    component: () => import('@/views/support/information/About.vue')
+                },
             ]
         },
         {
