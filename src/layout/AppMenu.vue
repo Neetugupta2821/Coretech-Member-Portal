@@ -6,136 +6,228 @@ import AppMenuItem from './AppMenuItem.vue';
 const model = ref([
     {
         label: 'Home',
-        items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' }]
-    },
-    {
-        label: 'UI Components',
         items: [
-            { label: 'Form Layout', icon: 'pi pi-fw pi-id-card', to: '/uikit/formlayout' },
-            { label: 'Input', icon: 'pi pi-fw pi-check-square', to: '/uikit/input' },
-            { label: 'Button', icon: 'pi pi-fw pi-mobile', to: '/uikit/button', class: 'rotated-icon' },
-            { label: 'Table', icon: 'pi pi-fw pi-table', to: '/uikit/table' },
-            { label: 'List', icon: 'pi pi-fw pi-list', to: '/uikit/list' },
-            { label: 'Tree', icon: 'pi pi-fw pi-share-alt', to: '/uikit/tree' },
-            { label: 'Panel', icon: 'pi pi-fw pi-tablet', to: '/uikit/panel' },
-            { label: 'Overlay', icon: 'pi pi-fw pi-clone', to: '/uikit/overlay' },
-            { label: 'Media', icon: 'pi pi-fw pi-image', to: '/uikit/media' },
-            { label: 'Menu', icon: 'pi pi-fw pi-bars', to: '/uikit/menu' },
-            { label: 'Message', icon: 'pi pi-fw pi-comment', to: '/uikit/message' },
-            { label: 'File', icon: 'pi pi-fw pi-file', to: '/uikit/file' },
-            { label: 'Chart', icon: 'pi pi-fw pi-chart-bar', to: '/uikit/charts' },
-            { label: 'Timeline', icon: 'pi pi-fw pi-calendar', to: '/uikit/timeline' },
-            { label: 'Misc', icon: 'pi pi-fw pi-circle', to: '/uikit/misc' }
+            { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' },
+            { label: 'Newsroom', icon: 'pi pi-fw pi-home', to: '/news' }
         ]
     },
     {
-        label: 'Pages',
-        icon: 'pi pi-fw pi-briefcase',
-        to: '/pages',
+        label: 'Account',
+        items: [
+            { label: 'My Account', icon: 'pi pi-fw pi-user', to: '/account' },
+            { label: 'Account Billing', icon: 'pi pi-fw pi-list', to: '/account/credit' },
+        ]
+    },
+    {
+        label: 'Services',
         items: [
             {
-                label: 'Landing',
+                label: 'Service Overview',
                 icon: 'pi pi-fw pi-globe',
-                to: '/landing'
+                to: '/service'
             },
             {
-                label: 'Auth',
+                label: 'Order a Service',
                 icon: 'pi pi-fw pi-user',
                 items: [
                     {
-                        label: 'Login',
+                        label: 'Overview',
                         icon: 'pi pi-fw pi-sign-in',
-                        to: '/auth/login'
+                        to: '/offer'
                     },
                     {
-                        label: 'Error',
+                        label: 'Dedicated Servers',
                         icon: 'pi pi-fw pi-times-circle',
-                        to: '/auth/error'
+                        to: '/offer/dedicated'
                     },
                     {
-                        label: 'Access Denied',
+                        label: 'Service Addons',
                         icon: 'pi pi-fw pi-lock',
-                        to: '/auth/access'
+                        to: '/offer/addon/general'
                     }
                 ]
             },
-            {
-                label: 'Crud',
-                icon: 'pi pi-fw pi-pencil',
-                to: '/pages/crud'
-            },
-            {
-                label: 'Not Found',
-                icon: 'pi pi-fw pi-exclamation-circle',
-                to: '/pages/notfound'
-            },
-            {
-                label: 'Empty',
-                icon: 'pi pi-fw pi-circle-off',
-                to: '/pages/empty'
-            }
         ]
     },
     {
-        label: 'Hierarchy',
+        label: 'DDOS Protection',
         items: [
             {
-                label: 'Submenu 1',
-                icon: 'pi pi-fw pi-bookmark',
+                label: 'Network Protection',
+                icon: 'pi pi-fw pi-user',
                 items: [
                     {
-                        label: 'Submenu 1.1',
-                        icon: 'pi pi-fw pi-bookmark',
-                        items: [
-                            { label: 'Submenu 1.1.1', icon: 'pi pi-fw pi-bookmark' },
-                            { label: 'Submenu 1.1.2', icon: 'pi pi-fw pi-bookmark' },
-                            { label: 'Submenu 1.1.3', icon: 'pi pi-fw pi-bookmark' }
-                        ]
+                        label: 'Incidents',
+                        icon: 'pi pi-fw pi-sign-in',
+                        to: '/network/incidents'
                     },
                     {
-                        label: 'Submenu 1.2',
+                        label: 'Flexrules',
+                        icon: 'pi pi-fw pi-times-circle',
+                        to: '/network/flexrules'
+                    },
+                    {
+                        label: 'Flowrules',
+                        icon: 'pi pi-fw pi-lock',
+                        to: '/network/flowrules'
+                    },
+                    {
+                        label: 'Thresholds',
+                        icon: 'pi pi-fw pi-lock',
+                        to: '/network/thresholds'
+                    },
+                    {
+                        label: 'Routing',
+                        icon: 'pi pi-fw pi-lock',
+                        to: '/network/routing'
+                    },
+                    {
+                        label: 'Resources',
                         icon: 'pi pi-fw pi-bookmark',
-                        items: [{ label: 'Submenu 1.2.1', icon: 'pi pi-fw pi-bookmark' }]
+                        items: [
+                            { label: 'Source Prefix Lists', icon: 'pi pi-fw pi-bookmark', to: '/network/prefixlist' },
+                            { label: 'Geo Definition', icon: 'pi pi-fw pi-bookmark', to: '/network/geodefinition' },
+                        ]
                     }
                 ]
             },
             {
-                label: 'Submenu 2',
-                icon: 'pi pi-fw pi-bookmark',
+                label: 'Website Protection',
+                icon: 'pi pi-fw pi-user',
                 items: [
                     {
-                        label: 'Submenu 2.1',
-                        icon: 'pi pi-fw pi-bookmark',
-                        items: [
-                            { label: 'Submenu 2.1.1', icon: 'pi pi-fw pi-bookmark' },
-                            { label: 'Submenu 2.1.2', icon: 'pi pi-fw pi-bookmark' }
-                        ]
+                        label: 'Certificates',
+                        icon: 'pi pi-fw pi-sign-in',
+                        to: '/website/certificate'
                     },
                     {
-                        label: 'Submenu 2.2',
-                        icon: 'pi pi-fw pi-bookmark',
-                        items: [{ label: 'Submenu 2.2.1', icon: 'pi pi-fw pi-bookmark' }]
+                        label: 'Challenge',
+                        icon: 'pi pi-fw pi-times-circle',
+                        to: '/website/challenge'
+                    },
+                    {
+                        label: 'Virtual Host',
+                        icon: 'pi pi-fw pi-lock',
+                        to: '/website/vhost'
                     }
                 ]
-            }
+            },
         ]
     },
     {
-        label: 'Get Started',
+        label: 'Support',
         items: [
             {
-                label: 'Documentation',
-                icon: 'pi pi-fw pi-book',
-                to: '/documentation'
+                label: 'Customer Service',
+                icon: 'pi pi-fw pi-user',
+                items: [
+                    {
+                        label: 'My Ticket',
+                        icon: 'pi pi-fw pi-sign-in',
+                        to: '/customer/tickets'
+                    },
+                    {
+                        label: 'New Ticket',
+                        icon: 'pi pi-fw pi-times-circle',
+                        to: '/customer/newticket'
+                    },
+                    {
+                        label: 'FAQ',
+                        icon: 'pi pi-fw pi-lock',
+                        to: '/customer/faq'
+                    }
+                ]
             },
             {
-                label: 'View Source',
-                icon: 'pi pi-fw pi-github',
-                url: 'https://github.com/primefaces/core-tech',
-                target: '_blank'
-            }
+                label: 'Information',
+                icon: 'pi pi-fw pi-user',
+                items: [
+                    {
+                        label: 'About',
+                        icon: 'pi pi-fw pi-sign-in',
+                        to: '/info/about'
+                    },
+                    {
+                        label: 'Wiki',
+                        icon: 'pi pi-fw pi-times-circle',
+                        url: 'https://wiki.coretech.network/',
+                        target: '_blank'
+                    },
+                    {
+                        label: 'Network Status ',
+                        icon: 'pi pi-fw pi-lock',
+                        url: 'https://status.coretech.network/status/client',
+                        target: '_blank'
+
+                    }
+                ]
+            },
         ]
-    }
+    },
+    // {
+    //     label: 'Pages',
+    //     icon: 'pi pi-fw pi-briefcase',
+    //     to: '/pages',
+    //     items: [
+    //         {
+    //             label: 'Landing',
+    //             icon: 'pi pi-fw pi-globe',
+    //             to: '/landing'
+    //         },
+    //         {
+    //             label: 'Auth',
+    //             icon: 'pi pi-fw pi-user',
+    //             items: [
+    //                 {
+    //                     label: 'Login',
+    //                     icon: 'pi pi-fw pi-sign-in',
+    //                     to: '/auth/login'
+    //                 },
+    //                 {
+    //                     label: 'Error',
+    //                     icon: 'pi pi-fw pi-times-circle',
+    //                     to: '/auth/error'
+    //                 },
+    //                 {
+    //                     label: 'Access Denied',
+    //                     icon: 'pi pi-fw pi-lock',
+    //                     to: '/auth/access'
+    //                 }
+    //             ]
+    //         },
+    //         {
+    //             label: 'Crud',
+    //             icon: 'pi pi-fw pi-pencil',
+    //             to: '/pages/crud'
+    //         },
+    //         {
+    //             label: 'Not Found',
+    //             icon: 'pi pi-fw pi-exclamation-circle',
+    //             to: '/pages/notfound'
+    //         },
+    //         {
+    //             label: 'Empty',
+    //             icon: 'pi pi-fw pi-circle-off',
+    //             to: '/pages/empty'
+    //         }
+    //     ]
+    // },
+    // {
+    //     label: 'Get Started',
+    //     items: [
+    //         {
+    //             label: 'Documentation',
+    //             icon: 'pi pi-fw pi-book',
+    //             to: '/documentation'
+    //         },
+    //         {
+    //             label: 'View Source',
+    //             icon: 'pi pi-fw pi-github',
+    //             url: 'https://github.com/primefaces/core-tech',
+    //             target: '_blank'
+    //         }
+    //     ]
+    // }
 ]);
 </script>
 
