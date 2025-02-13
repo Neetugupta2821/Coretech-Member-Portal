@@ -1,9 +1,17 @@
 import AppLayout from '@/layout/AppLayout.vue';
 import { createRouter, createWebHistory } from 'vue-router';
-
+const isAuthenticated = () => {
+    // Replace with actual authentication logic (e.g., checking localStorage or Vuex store)
+    return localStorage.getItem('userToken') !== null;
+};
 const router = createRouter({
     history: createWebHistory(),
     routes: [
+        {
+            path: '/auth/login',
+            name: 'login',
+            component: () => import('@/views/pages/auth/Login.vue')
+        },
         {
             path: '/',
             component: AppLayout,
@@ -117,11 +125,11 @@ const router = createRouter({
             component: () => import('@/views/pages/NotFound.vue')
         },
 
-        {
-            path: '/auth/login',
-            name: 'login',
-            component: () => import('@/views/pages/auth/Login.vue')
-        },
+        // {
+        //     path: '/auth/login',
+        //     name: 'login',
+        //     component: () => import('@/views/pages/auth/Login.vue')
+        // },
         {
             path: '/auth/access',
             name: 'accessDenied',
@@ -133,6 +141,15 @@ const router = createRouter({
             component: () => import('@/views/pages/auth/Error.vue')
         }
     ]
+});
+
+// Navigation Guard: Check authentication before each route
+router.beforeEach((to, from, next) => {
+    if (to.meta.requiresAuth && !isAuthenticated()) {
+        next('/auth/login'); // Redirect to login if not authenticated
+    } else {
+        next(); // Continue if authenticated
+    }
 });
 
 export default router;
