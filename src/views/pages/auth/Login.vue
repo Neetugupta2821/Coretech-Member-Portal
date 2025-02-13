@@ -23,18 +23,16 @@ const login = async () => {
 
     const response = await axios.post('http://192.168.1.83:8000/api/Parent/login/', credentials);
 
-    if (response.data.status === 'success') {
-      console.log('Login successful:', response.data);
+    if (response.status === 200) {
+      console.log('Login successful:', response.data.uuid);
       
       // Store token in localStorage or Vuex (optional)
-      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('uuid', response.data.uuid);
 
       router.push('/'); // Redirect to home page
-    } else {
-      console.error('Login failed:', response.data);
-    }
+    } 
   } catch (error) {
-    console.error('Login error:', error.response ? error.response.data : error.message);
+    console.error('Login error:', error);
   }
 };
 

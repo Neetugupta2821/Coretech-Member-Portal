@@ -6,7 +6,11 @@ import Aura from '@primevue/themes/aura';
 import PrimeVue from 'primevue/config';
 import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
+// Import the missing regular icon
+import { faCircleDot } from '@fortawesome/free-regular-svg-icons';
 import '@/assets/styles.scss';
 import '@/assets/tailwind.css';
 
@@ -23,7 +27,13 @@ const app = createApp(App);
 
 app.use(router);
 app.use(store);
-
+app.component('font-awesome-icon', FontAwesomeIcon);
+export default {
+    components: {
+      FontAwesomeIcon
+    }
+  };
+  library.add(faCircleDot);
 app.use(PrimeVue, {
     theme: {
         preset: Aura,
