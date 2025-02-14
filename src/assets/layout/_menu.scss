@@ -27,8 +27,8 @@
             font-size: 0.857rem;
             text-transform: uppercase;
             font-weight: 700;
-            color: var(--text-color);
-            margin: 0.75rem 0;
+            color: gray;
+            margin: 1.1rem 0;
         }
 
         > a {
@@ -91,7 +91,7 @@
             }
             &:hover {
                 // background-color: var(--surface-hover);
-                transition: transform .25s ease !important;
+                transition: transform 0.25s ease !important;
             }
 
             &:focus {
