@@ -1,68 +1,9 @@
 <script setup>
 import { useLayout } from '@/layout/composables/layout';
 import AppConfigurator from './AppConfigurator.vue';
-
-const { toggleMenu, toggleDarkMode, isDarkTheme, layoutConfig, layoutState, isSidebarActive } = useLayout();
-import { ref } from "vue";
-
-const menu = ref();
-const items = ref([
-    {
-        label: 'File',
-        icon: 'pi pi-file',
-
-    },
-    {
-        label: 'Edit',
-        icon: 'pi pi-file-edit',
-
-    },
-    {
-        label: 'Search',
-        icon: 'pi pi-search'
-    },
-
-]);
-
-const toggle = (event) => {
-    menu.value.toggle(event);
-};
-
-import { useToast } from "primevue/usetoast";
-
-const toast = useToast();
-
  
-// import { useToast } from "primevue/usetoast";
-// const toast = useToast();
-
-const items3 = [
-    {
-        label: 'Update',
-        command: () => {
-            toast.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated', life: 3000 });
-        }
-    },
-    {
-        label: 'Delete',
-        command: () => {
-            toast.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted', life: 3000 });
-        }
-    },
-    {
-        separator: true
-    },
-    {
-        label: 'Quit',
-        command: () => {
-            window.location.href = 'https://vuejs.org/';
-        }
-    }
-];
-
-const save = () => {
-    toast.add({ severity: 'success', summary: 'Success', detail: 'Data Saved', life: 3000 });
-};
+const { toggleMenu, toggleDarkMode, isDarkTheme ,layoutConfig, layoutState, isSidebarActive } = useLayout();
+ 
 </script>
 
 <template>
@@ -86,7 +27,8 @@ const save = () => {
                         />
                     </g>
                 </svg> -->
-                <span><img src="../assets/images/logo.png" alt="logo" width="140" /></span>
+                <!-- <span><img src="../assets/images/logoblack.png" alt="logo" width="140" /></span> -->
+                <span><img src="../assets/images/logo.png" alt="logo" width="140"></span>
             </router-link>
             <button class="layout-menu-button layout-topbar-action" @click="toggleMenu">
                 <font-awesome-icon :icon="['far', 'circle-dot']" />
