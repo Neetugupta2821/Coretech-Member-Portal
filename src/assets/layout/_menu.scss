@@ -27,8 +27,8 @@
             font-size: 0.857rem;
             text-transform: uppercase;
             font-weight: 700;
-            color: var(--text-color);
-            margin: 0.75rem 0;
+            color: gray;
+            margin: 1.1rem 0;
         }
 
         > a {
@@ -85,13 +85,13 @@
             &.active-route {
                 font-weight: 700;
                 color: #fff;
-                background: linear-gradient(118deg, #eb603f, rgba(235, 96, 63, 0.7));
-                box-shadow: 0 0 10px 1px rgba(235, 96, 63, 0.7);
+                background: linear-gradient(118deg, #c96304, rgba(241, 149, 43, 0.7));
+                box-shadow: 0 0 10px 1px rgba(221, 137, 59, 0.7);
                 border-radius: 4px;
             }
             &:hover {
                 // background-color: var(--surface-hover);
-                transition: transform .25s ease !important;
+                transition: transform 0.25s ease !important;
             }
 
             &:focus {

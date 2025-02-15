@@ -15,7 +15,7 @@ const model = ref([
         label: 'Account',
         items: [
             { label: 'My Account', icon: 'pi pi-fw pi-user', to: '/account' },
-            { label: 'Account Billing', icon: 'pi pi-fw pi-list', to: '/account/credit' },
+            { label: 'Account Billing', icon: 'pi pi-fw pi-user', to: '/account/credit' },
         ]
     },
     {

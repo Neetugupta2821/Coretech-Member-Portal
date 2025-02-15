@@ -1,109 +1,57 @@
 <script setup>
-import { ref } from 'vue';
-
-const menu = ref(null);
-
-const items = ref([
-    { label: 'Add New', icon: 'pi pi-fw pi-plus' },
-    { label: 'Remove', icon: 'pi pi-fw pi-trash' }
-]);
 </script>
-
 <template>
     <div class="card">
-        <div class="flex justify-between items-center mb-6">
-            <div class="font-semibold text-xl">Best Selling Products</div>
-            <div>
-                <Button icon="pi pi-ellipsis-v" class="p-button-text p-button-plain p-button-rounded"
-                    @click="$refs.menu.toggle($event)"></Button>
-                <Menu ref="menu" popup :model="items" class="!min-w-40"></Menu>
-            </div>
-        </div>
-        <ul class="list-none p-0 m-0">
-            <li class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                <div>
-                    <span class="text-surface-900 dark:text-surface-0 font-medium mr-2 mb-1 md:mb-0">Space
-                        T-Shirt</span>
-                    <div class="mt-1 text-muted-color">Clothing</div>
-                </div>
-                <div class="mt-2 md:mt-0 flex items-center">
-                    <div class="bg-surface-300 dark:bg-surface-500 rounded-border overflow-hidden w-40 lg:w-24"
-                        style="height: 8px">
-                        <div class="bg-orange-500 h-full" style="width: 50%"></div>
+        <Tabs value="0">
+            <TabList>
+                <Tab value="0" as="div" class="flex items-center gap-2">
+                    <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
+                    <span class="font-bold whitespace-nowrap">Amy Elsner</span>
+                </Tab>
+                <Tab value="1" as="div" class="flex items-center gap-2">
+                    <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/onyamalimba.png" shape="circle" />
+                    <span class="font-bold whitespace-nowrap">Onyama Limba</span>
+                </Tab>
+                <Tab v-slot="slotProps" value="2" asChild>
+                    <div :class="['flex items-center gap-2', slotProps.class]" @click="slotProps.onClick"
+                        v-bind="slotProps.a11yAttrs">
+                        <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/ionibowcher.png"
+                            shape="circle" />
+                        <span class="font-bold whitespace-nowrap">Ioni Bowcher</span>
+                        <Badge value="2" />
                     </div>
-                    <span class="text-orange-500 ml-4 font-medium">%50</span>
-                </div>
-            </li>
-            <li class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                <div>
-                    <span class="text-surface-900 dark:text-surface-0 font-medium mr-2 mb-1 md:mb-0">Portal
-                        Sticker</span>
-                    <div class="mt-1 text-muted-color">Accessories</div>
-                </div>
-                <div class="mt-2 md:mt-0 ml-0 md:ml-20 flex items-center">
-                    <div class="bg-surface-300 dark:bg-surface-500 rounded-border overflow-hidden w-40 lg:w-24"
-                        style="height: 8px">
-                        <div class="bg-cyan-500 h-full" style="width: 16%"></div>
+                </Tab>
+            </TabList>
+            <TabPanels>
+                <TabPanel value="0" as="p" class="m-0">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                    nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                    mollit anim id est laborum.
+                </TabPanel>
+                <TabPanel value="1" as="p" class="m-0">
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
+                    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
+                    dicta sunt explicabo. Nemo enim
+                    ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+                    dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam
+                    eius modi.
+                </TabPanel>
+                <TabPanel v-slot="slotProps" value="2" asChild>
+                    <div v-show="slotProps.active" :class="slotProps.class" v-bind="slotProps.a11yAttrs">
+                        <p class="m-0">
+                            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+                            voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                            cupiditate non provident, similique sunt in
+                            culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem
+                            rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi
+                            optio cumque nihil impedit quo minus.
+                        </p>
                     </div>
-                    <span class="text-cyan-500 ml-4 font-medium">%16</span>
-                </div>
-            </li>
-            <li class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                <div>
-                    <span class="text-surface-900 dark:text-surface-0 font-medium mr-2 mb-1 md:mb-0">Supernova
-                        Sticker</span>
-                    <div class="mt-1 text-muted-color">Accessories</div>
-                </div>
-                <div class="mt-2 md:mt-0 ml-0 md:ml-20 flex items-center">
-                    <div class="bg-surface-300 dark:bg-surface-500 rounded-border overflow-hidden w-40 lg:w-24"
-                        style="height: 8px">
-                        <div class="bg-pink-500 h-full" style="width: 67%"></div>
-                    </div>
-                    <span class="text-pink-500 ml-4 font-medium">%67</span>
-                </div>
-            </li>
-            <li class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                <div>
-                    <span class="text-surface-900 dark:text-surface-0 font-medium mr-2 mb-1 md:mb-0">Wonders
-                        Notebook</span>
-                    <div class="mt-1 text-muted-color">Office</div>
-                </div>
-                <div class="mt-2 md:mt-0 ml-0 md:ml-20 flex items-center">
-                    <div class="bg-surface-300 dark:bg-surface-500 rounded-border overflow-hidden w-40 lg:w-24"
-                        style="height: 8px">
-                        <div class="bg-green-500 h-full" style="width: 35%"></div>
-                    </div>
-                    <span class="text-primary ml-4 font-medium">%35</span>
-                </div>
-            </li>
-            <li class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                <div>
-                    <span class="text-surface-900 dark:text-surface-0 font-medium mr-2 mb-1 md:mb-0">Mat Black
-                        Case</span>
-                    <div class="mt-1 text-muted-color">Accessories</div>
-                </div>
-                <div class="mt-2 md:mt-0 ml-0 md:ml-20 flex items-center">
-                    <div class="bg-surface-300 dark:bg-surface-500 rounded-border overflow-hidden w-40 lg:w-24"
-                        style="height: 8px">
-                        <div class="bg-purple-500 h-full" style="width: 75%"></div>
-                    </div>
-                    <span class="text-purple-500 ml-4 font-medium">%75</span>
-                </div>
-            </li>
-            <li class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                <div>
-                    <span class="text-surface-900 dark:text-surface-0 font-medium mr-2 mb-1 md:mb-0">Robots
-                        T-Shirt</span>
-                    <div class="mt-1 text-muted-color">Clothing</div>
-                </div>
-                <div class="mt-2 md:mt-0 ml-0 md:ml-20 flex items-center">
-                    <div class="bg-surface-300 dark:bg-surface-500 rounded-border overflow-hidden w-40 lg:w-24"
-                        style="height: 8px">
-                        <div class="bg-teal-500 h-full" style="width: 40%"></div>
-                    </div>
-                    <span class="text-teal-500 ml-4 font-medium">%40</span>
-                </div>
-            </li>
-        </ul>
+                </TabPanel>
+            </TabPanels>
+        </Tabs>
     </div>
 </template>
