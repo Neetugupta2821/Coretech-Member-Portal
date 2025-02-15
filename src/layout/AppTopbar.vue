@@ -2,7 +2,8 @@
 import { useLayout } from '@/layout/composables/layout';
 import AppConfigurator from './AppConfigurator.vue';
 
-const { toggleMenu, toggleDarkMode, isDarkTheme } = useLayout();
+const { toggleMenu, toggleDarkMode, isDarkTheme ,layoutConfig, layoutState, isSidebarActive } = useLayout();
+
 </script>
 
 <template>
@@ -26,10 +27,11 @@ const { toggleMenu, toggleDarkMode, isDarkTheme } = useLayout();
                         />
                     </g>
                 </svg> -->
-                <span><img src="../assets/images/logo.png" alt="logo" width="140" /></span>
+                <!-- <span><img src="../assets/images/logoblack.png" alt="logo" width="140" /></span> -->
+                <span><img src="../assets/images/logo.png" alt="logo" width="140"></span>
             </router-link>
             <button class="layout-menu-button layout-topbar-action" @click="toggleMenu">
-                <i class="pi pi-bars"></i>
+                <font-awesome-icon :icon="['far', 'circle-dot']" />
             </button>
         </div>
 

@@ -47,8 +47,16 @@
             &.layout-static-inactive {
                 .layout-sidebar {
                     transform: translateX(-100%);
-                    left: 0;
+                    // left: 280px;
                 }
+
+                // .layout-menuitem-text{
+                //     display:none
+                // }
+                // .layout-menu ul a.active-route{
+                //     background: none;
+                //     box-shadow: none;
+                // }
 
                 .layout-main-container {
                     margin-left: 0;

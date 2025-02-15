@@ -33,7 +33,6 @@ const getSeverity = (product) => {
             <template #header>
                 <div class="flex flex-wrap items-center justify-between gap-2">
                     <span class="text-xl font-bold">Scheduled Maintenance</span>
-                    <!-- <Button icon="pi pi-refresh" rounded raised /> -->
                 </div>
             </template>
             <Column field="name" header="DETAIL"></Column>
