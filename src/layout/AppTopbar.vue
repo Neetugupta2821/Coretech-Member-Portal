@@ -90,9 +90,13 @@ const save = () => {
             <button class="layout-menu-button layout-topbar-action" @click="toggleMenu">
                 <font-awesome-icon :icon="['far', 'circle-dot']" />
             </button>
-        </div>
 
+        </div>
+        <div>
+             <div><i class="pi pi-info-circle" style="color: #28c76f; margin-right:8px; font-size: 18px;" ></i><span style="padding: 0px 0px 6px 3px;">Abilities last updated: 2/18/2025, 12:22 PM</span> </div>
+        </div>
         <div class="layout-topbar-actions">
+
             <div class="layout-config-menu">
                 <button type="button" class="layout-topbar-action" @click="toggleDarkMode">
                     <i :class="['pi', { 'pi-sun': isDarkTheme, 'pi-moon': !isDarkTheme }]"></i>
@@ -118,6 +122,7 @@ const save = () => {
             </button>
 
             <div class="layout-topbar-menu hidden lg:block">
+
                 <div class="layout-topbar-menu-content">
                     <!-- <button type="button" class="layout-topbar-action">
                         <i class="pi pi-calendar"></i>
@@ -127,10 +132,17 @@ const save = () => {
                         <i class="pi pi-inbox"></i>
                         <span>Messages</span>
                     </button> -->
-                    <div>
-                        <p>Veena Kumari(431dc740<span><font-awesome-icon
-                                    :icon="['fas', 'mobile-screen-button']" /></span>)</p>
+                    <div style="padding: 6px 0px;">
+                        <p v-tooltip.bottom="'Veena Kumari'" style="font-weight: 600; font-size: 16px;">
+                            Veena Kumari(431dc740<span>
+                                <Toast />
+                                <i class="pi pi-mobile" style="color: #00cfe8;padding: 0px 2px;"  @click="show()">
+
+                                </i></span>)
+                        </p>
+
                     </div>
+
                     <div type="button" class="profile-menu">
 
                         <div>

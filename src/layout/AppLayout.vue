@@ -27,18 +27,18 @@ const containerClass = computed(() => {
     };
 });
 
-// function bindOutsideClickListener() {
-//     if (!outsideClickListener.value) {
-//         outsideClickListener.value = (event) => {
-//             if (isOutsideClicked(event)) {
-//                 layoutState.overlayMenuActive = false;
-//                 layoutState.staticMenuMobileActive = false;
-//                 layoutState.menuHoverActive = false;
-//             }
-//         };
-//         document.addEventListener('click', outsideClickListener.value);
-//     }
-// }
+function bindOutsideClickListener() {
+    if (!outsideClickListener.value) {
+        outsideClickListener.value = (event) => {
+            if (isOutsideClicked(event)) {
+                layoutState.overlayMenuActive = false;
+                layoutState.staticMenuMobileActive = false;
+                layoutState.menuHoverActive = false;
+            }
+        };
+        document.addEventListener('click', outsideClickListener.value);
+    }
+}
 
 function unbindOutsideClickListener() {
     if (outsideClickListener.value) {

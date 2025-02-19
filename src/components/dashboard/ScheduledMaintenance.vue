@@ -1,32 +1,38 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { ProductService } from '@/service/ProductService';
+import axios from 'axios';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
-onMounted(() => {
-    ProductService.getProductsMini().then((data) => (products.value = data));
-});
+const products = ref([]);
 
-const products = ref();
-const formatCurrency = (value) => {
-    return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-};
-const getSeverity = (product) => {
-    switch (product.inventoryStatus) {
-        case 'INSTOCK':
-            return 'success';
-
-        case 'LOWSTOCK':
-            return 'warn';
-
-        case 'OUTOFSTOCK':
-            return 'danger';
-
-        default:
-            return null;
+const fetchMaintenanceData = async () => {
+    try {
+        const response = await axios.get('http://192.168.1.83:8000/api/Schedule/Mantance/');
+        products.value = response.data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        toast.error("Failed to fetch maintenance data");
     }
 };
 
+onMounted(fetchMaintenanceData);
+
+// Format date function
+const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    return new Date(dateString).toLocaleDateString('en-US', options);
+};
+
+const openLink = (url) => {
+    if (url) {
+        window.open(url, '_blank');
+    } else {
+        toast.warning("No URL available");
+    }
+};
 </script>
+
 <template>
     <div class="card">
         <DataTable :value="products" tableStyle="min-width: 50rem">
@@ -35,18 +41,29 @@ const getSeverity = (product) => {
                     <span class="text-xl font-bold">Scheduled Maintenance</span>
                 </div>
             </template>
-            <Column field="name" header="DETAIL" class="font-bold"></Column>
-            <Column header="STATUS">
+            <Column header="DETAIL" style="min-width: 12rem">
                 <template #body="slotProps">
-                    <Tag :value="slotProps.data.inventoryStatus" :severity="getSeverity(slotProps.data)" />
+                    {{ (slotProps.data.details) }}
+                    &nbsp;<span @click="openLink(slotProps.data.urls)">
+                        <i class="pi pi-external-link text-orange-400" style="font-size: 1rem "></i>
+                    </span>
                 </template>
             </Column>
-            <Column field="price" header="SCHEDULED FOR">
+            <Column header="STATUS" style="min-width: 12rem">
                 <template #body="slotProps">
-                    {{ formatCurrency(slotProps.data.price) }}
+                    {{ (slotProps.data.status) }}
                 </template>
             </Column>
-            <Column field="category" header="SCHEDULED UNTIL"></Column>
+            <Column header="SCHEDULED FOR" style="min-width: 12rem">
+                <template #body="slotProps">
+                    {{ formatDate(slotProps.data.Scheduled_for) }}
+                </template>
+            </Column>
+            <Column header="SCHEDULED UNTIL" style="min-width: 12rem">
+                <template #body="slotProps">
+                    {{ formatDate(slotProps.data.Scheduled_until) }}
+                </template>
+            </Column>
         </DataTable>
     </div>
 </template>

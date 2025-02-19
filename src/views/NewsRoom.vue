@@ -39,8 +39,7 @@ const getStatusLabel = (status) => {
 </script>
 
 <template>
-    <div v-animateonscroll="{ enterClass: 'animate-fadein', leaveClass: 'animate-fadeout'}"
-        class="animate-duration-500 ">
+    <div v-animateonscroll="{ enterClass: 'animate-fadein', leaveClass: 'animate-fadein' }" class="animate-duration-700 animate-ease-in-out">
         <div class="col-span-12 mb-4">
             <h1 class="m-0 font-bold text-xl">News & Announcements</h1>
         </div>
@@ -81,15 +80,21 @@ const getStatusLabel = (status) => {
 </template>
 
 <style>
-@keyframes change {
-  0% {
-    transform: scale(0) translateX(0px);
-  }
-  100% {
-    transform: scale(2.8) translateX(40px);
-  }
+.fade-in {
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 2s;
 }
-.zoom {
-    animation: change 1s;
+
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 </style>

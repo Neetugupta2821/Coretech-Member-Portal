@@ -18,7 +18,7 @@ import ServiceUnder from '@/components/dashboard/ServiceUnder.vue';
         </div>
     </div>
     <div v-animateonscroll="{ enterClass: 'animate-fadein', leaveClass: 'animate-fadein' }"
-        class="grid grid-cols-12 gap-8 animate-duration-700">
+        class="grid grid-cols-12 gap-8 animate-duration-700 animate-ease-in-out">
         <div class="col-span-12 xl:col-span-12">
             <ServiceUnder />
         </div>
