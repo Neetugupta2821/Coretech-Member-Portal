@@ -2,8 +2,8 @@ import { computed, reactive } from 'vue';
 
 const layoutConfig = reactive({
     preset: 'Aura',
-    primary: 'orange',
-    surface: 'slate',
+    primary: 'emerald',
+    surface: null,
     darkTheme: false,
     menuMode: 'static'
 });
@@ -26,8 +26,10 @@ export function useLayout() {
     const toggleDarkMode = () => {
         if (!document.startViewTransition) {
             executeDarkModeToggle();
+
             return;
         }
+
         document.startViewTransition(() => executeDarkModeToggle(event));
     };
 
@@ -40,17 +42,20 @@ export function useLayout() {
         if (layoutConfig.menuMode === 'overlay') {
             layoutState.overlayMenuActive = !layoutState.overlayMenuActive;
         }
+
         if (window.innerWidth > 991) {
             layoutState.staticMenuDesktopInactive = !layoutState.staticMenuDesktopInactive;
+        } else {
+            layoutState.staticMenuMobileActive = !layoutState.staticMenuMobileActive;
         }
-        // } else {
-        //     layoutState.staticMenuMobileActive = !layoutState.staticMenuMobileActive;
-        // }
     };
 
     const isSidebarActive = computed(() => layoutState.overlayMenuActive || layoutState.staticMenuMobileActive);
+
     const isDarkTheme = computed(() => layoutConfig.darkTheme);
+
     const getPrimary = computed(() => layoutConfig.primary);
+
     const getSurface = computed(() => layoutConfig.surface);
 
     return {

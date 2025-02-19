@@ -8,7 +8,7 @@ import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
+import Tooltip from 'primevue/tooltip';
 // Import the missing regular icon
 import { faCircleDot } from '@fortawesome/free-regular-svg-icons';
 import '@/assets/styles.scss';
@@ -28,6 +28,7 @@ const app = createApp(App);
 app.use(router);
 app.use(store);
 app.component('font-awesome-icon', FontAwesomeIcon);
+app.directive('tooltip', Tooltip);
 export default {
     components: {
       FontAwesomeIcon

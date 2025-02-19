@@ -1,9 +1,74 @@
 <script setup>
 import { useLayout } from '@/layout/composables/layout';
 import AppConfigurator from './AppConfigurator.vue';
+
+const { toggleMenu, toggleDarkMode, isDarkTheme, layoutConfig, layoutState, isSidebarActive } = useLayout();
+import { ref } from "vue";
+
+const menu = ref();
+const items = ref([
+    {
+        label: 'File',
+        icon: 'pi pi-file',
+
+    },
+    {
+        label: 'Edit',
+        icon: 'pi pi-file-edit',
+
+    },
+    {
+        label: 'Search',
+        icon: 'pi pi-search'
+    },
+
+]);
+
+const toggle = (event) => {
+    menu.value.toggle(event);
+};
+
+import { useToast } from "primevue/usetoast";
+
+const toast = useToast();
+
+
+// import { useToast } from "primevue/usetoast";
+// const toast = useToast();
+
+const items3 = [
+    {
+        label: 'Update',
+        command: () => {
+            toast.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated', life: 3000 });
+        }
+    },
+    {
+        label: 'Delete',
+        command: () => {
+            toast.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted', life: 3000 });
+        }
+    },
+    {
+        separator: true
+    },
+    {
+        label: 'Quit',
+        command: () => {
+            window.location.href = 'https://vuejs.org/';
+        }
+    }
+];
+
+const save = () => {
+    toast.add({ severity: 'success', summary: 'Success', detail: 'Data Saved', life: 3000 });
+};
  
-const { toggleMenu, toggleDarkMode, isDarkTheme ,layoutConfig, layoutState, isSidebarActive } = useLayout();
- 
+
+const show = () => {
+     
+    toast.add({ severity: 'info', summary: 'Text Copied!', detail: 'Message Content', life: 3000 });
+};
 </script>
 
 <template>
@@ -27,22 +92,25 @@ const { toggleMenu, toggleDarkMode, isDarkTheme ,layoutConfig, layoutState, isSi
                         />
                     </g>
                 </svg> -->
-                <!-- <span><img src="../assets/images/logoblack.png" alt="logo" width="140" /></span> -->
-                <span><img src="../assets/images/logo.png" alt="logo" width="140"></span>
+                <span><img src="../assets/images/logo.png" alt="logo" width="140" /></span>
             </router-link>
             <button class="layout-menu-button layout-topbar-action" @click="toggleMenu">
                 <font-awesome-icon :icon="['far', 'circle-dot']" />
             </button>
+       
         </div>
-
+        <div>
+             <div><i class="pi pi-info-circle" style="color: #28c76f; margin-right:8px; font-size: 18px;" ></i><span style="padding: 0px 0px 6px 3px;">Abilities last updated: 2/18/2025, 12:22 PM</span> </div>
+        </div>
         <div class="layout-topbar-actions">
+         
             <div class="layout-config-menu">
                 <button type="button" class="layout-topbar-action" @click="toggleDarkMode">
                     <i :class="['pi', { 'pi-sun': isDarkTheme, 'pi-moon': !isDarkTheme }]"></i>
                 </button>
-                <div :style="{ color: textColor, fontSize:  17 + 'px' ,padding:5 + 'px',fontWeight: 600}">
-                    <Button type="button" label="€0.00" @click="toggle" aria-haspopup="true" unstyled="false" size="large"
-                        aria-controls="overlay_tmenu" />
+                <div :style="{ color: textColor, fontSize: 17 + 'px', padding: 5 + 'px', fontWeight: 600 }">
+                    <Button type="button" label="€0.00" @click="toggle" aria-haspopup="true" unstyled="false"
+                        size="large" aria-controls="overlay_tmenu" />
                     <TieredMenu ref="menu" id="overlay_tmenu" :model="items" popup />
 
                 </div>
@@ -57,13 +125,14 @@ const { toggleMenu, toggleDarkMode, isDarkTheme ,layoutConfig, layoutState, isSi
                     <AppConfigurator />
                 </div> -->
             </div>
-
+            
             <button class="layout-topbar-menu-button layout-topbar-action"
                 v-styleclass="{ selector: '@next', enterFromClass: 'hidden', enterActiveClass: 'animate-scalein', leaveToClass: 'hidden', leaveActiveClass: 'animate-fadeout', hideOnOutsideClick: true }">
                 <i class="pi pi-ellipsis-v"></i>
             </button>
-
+           
             <div class="layout-topbar-menu hidden lg:block">
+                
                 <div class="layout-topbar-menu-content">
                     <!-- <button type="button" class="layout-topbar-action">
                         <i class="pi pi-calendar"></i>
@@ -73,15 +142,26 @@ const { toggleMenu, toggleDarkMode, isDarkTheme ,layoutConfig, layoutState, isSi
                         <i class="pi pi-inbox"></i>
                         <span>Messages</span>
                     </button> -->
-                    <div>
-                        <p>Veena Kumari(431dc740<span><font-awesome-icon :icon="['fas', 'mobile-screen-button']"/></span>)</p>
+                    <div style="padding: 6px 0px;">
+                        <p v-tooltip.bottom="'Veena Kumari'" style="font-weight: 600; font-size: 16px;">
+                            Veena Kumari(431dc740<span>
+                                <Toast />
+                                <i class="pi pi-mobile" style="color: #00cfe8;padding: 0px 2px;"  @click="show()">
+
+                                </i></span>)
+                        </p>
+
                     </div>
+
                     <div type="button" class="profile-menu">
-                         
-                         <div><SplitButton class="p-splitbutton-button" :model="items3"  outlined="true"  label=" " icon="pi pi-user" rounded="false" text="false" size="large" plain="false" dt="any"   /></div>
-                         
+
+                        <div>
+                            <SplitButton class="p-splitbutton-button" :model="items3" outlined="true" label=" "
+                                icon="pi pi-user" rounded="false" text="false" size="large" plain="false" dt="any" />
+                        </div>
+
                     </div>
-                    
+
                 </div>
             </div>
         </div>
