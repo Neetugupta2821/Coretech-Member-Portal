@@ -8,10 +8,13 @@
         "lint": "eslint --fix . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
     },
     "dependencies": {
+        "@coreui/coreui": "^5.2.0",
+        "@coreui/vue": "^5.4.1",
         "@fortawesome/fontawesome-svg-core": "^6.7.2",
         "@fortawesome/free-regular-svg-icons": "^6.7.2",
         "@fortawesome/vue-fontawesome": "^3.0.8",
         "@headlessui/vue": "^1.7.23",
+        "@primevue/forms": "^4.2.5",
         "@primevue/themes": "^4.2.4",
         "axios": "^1.7.9",
         "chart.js": "3.3.2",
@@ -21,7 +24,8 @@
         "vue-axios": "^3.5.2",
         "vue-router": "^4.4.0",
         "vue3-toastify": "^0.2.8",
-        "vuex": "^4.0.2"
+        "vuex": "^4.0.2",
+        "yup": "^1.6.1"
     },
     "devDependencies": {
         "@primevue/auto-import-resolver": "^4.2.4",

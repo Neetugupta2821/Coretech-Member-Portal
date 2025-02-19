@@ -39,8 +39,8 @@ const getStatusLabel = (status) => {
 </script>
 
 <template>
-    <div v-animateonscroll="{ enterClass: 'animate-fadein', leaveClass: 'animate-fadein' }"
-        class="animate-duration-700">
+    <div v-animateonscroll="{ enterClass: 'animate-fadein', leaveClass: 'animate-fadeout'}"
+        class="animate-duration-500 ">
         <div class="col-span-12 mb-4">
             <h1 class="m-0 font-bold text-xl">News & Announcements</h1>
         </div>
@@ -51,16 +51,9 @@ const getStatusLabel = (status) => {
                 <template #header>
                     <div class="flex flex-wrap gap-2 items-center justify-between">
                         <h4 class="m-0 font-medium text-xl">Recent News</h4>
-                        <!-- <IconField>
-                            <InputIcon>
-                                <i class="pi pi-search" />
-                            </InputIcon>
-                            <InputText v-model="filters['global'].value" placeholder="Search..." />
-                        </IconField> -->
                     </div>
                 </template>
 
-                <!-- <Column selectionMode="multiple" style="width: 3rem" :exportable="false"></Column> -->
                 <Column field="code" header="UUID" sortable style="min-width: 12rem"></Column>
                 <Column field="inventoryStatus" header="Type" sortable style="min-width: 12rem">
                     <template #body="slotProps">
@@ -82,15 +75,21 @@ const getStatusLabel = (status) => {
                     </template>
                 </Column>
                 <Column field="category" header="Action" sortable style="min-width: 10rem"></Column>
-                <!-- <Column :exportable="false" style="min-width: 12rem">
-                    <template #body="slotProps">
-                        <Button icon="pi pi-pencil" outlined rounded class="mr-2"
-                            @click="editProduct(slotProps.data)" />
-                        <Button icon="pi pi-trash" outlined rounded severity="danger"
-                            @click="confirmDeleteProduct(slotProps.data)" />
-                    </template>
-                </Column> -->
             </DataTable>
         </div>
     </div>
 </template>
+
+<style>
+@keyframes change {
+  0% {
+    transform: scale(0) translateX(0px);
+  }
+  100% {
+    transform: scale(2.8) translateX(40px);
+  }
+}
+.zoom {
+    animation: change 1s;
+}
+</style>

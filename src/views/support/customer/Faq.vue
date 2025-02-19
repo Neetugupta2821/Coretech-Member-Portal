@@ -1,30 +1,17 @@
 <script setup>
-import { NodeService } from '@/service/NodeService';
-import { onMounted, ref } from 'vue';
-
-const treeValue = ref(null);
-const selectedTreeValue = ref(null);
-const treeTableValue = ref(null);
-const selectedTreeTableValue = ref(null);
-
-onMounted(() => {
-    NodeService.getTreeNodes().then((data) => (treeValue.value = data));
-    NodeService.getTreeTableNodes().then((data) => (treeTableValue.value = data));
-});
+import NotificationView from '@/components/dashboard/NotificationView.vue';
 </script>
 
 <template>
-    <div class="card">
-        <div class="font-semibold text-xl">Tree</div>
-        <Tree :value="treeValue" selectionMode="checkbox" v-model:selectionKeys="selectedTreeValue"></Tree>
-    </div>
-
-    <div class="card">
-        <div class="font-semibold text-xl mb-4">TreeTable</div>
-        <TreeTable :value="treeTableValue" selectionMode="checkbox" v-model:selectionKeys="selectedTreeTableValue">
-            <Column field="name" header="Name" :expander="true"></Column>
-            <Column field="size" header="Size"></Column>
-            <Column field="type" header="Type"></Column>
-        </TreeTable>
+    <div class="mb-4">
+        <div class="col-span-12 xl:col-span-12 mb-6">
+            <span class="text-xl font-bold">FAQ</span>
+            <p class="text-muted-color">Choose a category to quickly find the help you need</p>
+        </div>
+        <div class="col-span-12 xl:col-span-12">
+            <router-link :to="'/news'">
+                <NotificationView />
+            </router-link>
+        </div>
     </div>
 </template>

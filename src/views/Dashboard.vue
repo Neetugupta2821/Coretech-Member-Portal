@@ -12,7 +12,9 @@ import ServiceUnder from '@/components/dashboard/ServiceUnder.vue';
             <span class="text-xl">Dashboard</span>
         </div>
         <div class="col-span-12 xl:col-span-12">
-            <NotificationView />
+            <router-link :to="'/news'">
+                <NotificationView />
+            </router-link>
         </div>
     </div>
     <div v-animateonscroll="{ enterClass: 'animate-fadein', leaveClass: 'animate-fadein' }"

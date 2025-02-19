@@ -22,7 +22,7 @@ router.afterEach((to) => {
     document.body.classList.add(`${routeClass}`); // Add a custom class
     document.body.id = `${routeClass}`; // Add a custom ID (optional)
 });
-console.log("Hello neetu gupta")
+console.log('Hello neetu gupta');
 const app = createApp(App);
 
 app.use(router);
@@ -31,10 +31,10 @@ app.component('font-awesome-icon', FontAwesomeIcon);
 app.directive('tooltip', Tooltip);
 export default {
     components: {
-      FontAwesomeIcon
+        FontAwesomeIcon
     }
-  };
-  library.add(faCircleDot);
+};
+library.add(faCircleDot);
 app.use(PrimeVue, {
     theme: {
         preset: Aura,

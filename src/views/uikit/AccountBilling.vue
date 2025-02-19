@@ -1,176 +1,176 @@
 <script setup>
-import { ProductService } from '@/service/ProductService';
-import { onMounted, ref } from 'vue';
+import NotificationView from '@/components/dashboard/NotificationView.vue'; import { ref } from "vue";
 
-const products = ref(null);
-const picklistProducts = ref(null);
-const orderlistProducts = ref(null);
-const options = ref(['list', 'grid']);
-const layout = ref('list');
-
-onMounted(() => {
-    ProductService.getProductsSmall().then((data) => {
-        products.value = data.slice(0, 6);
-        picklistProducts.value = [data, []];
-        orderlistProducts.value = data;
-    });
-});
-
-function getSeverity(product) {
-    switch (product.inventoryStatus) {
-        case 'INSTOCK':
-            return 'success';
-
-        case 'LOWSTOCK':
-            return 'warning';
-
-        case 'OUTOFSTOCK':
-            return 'danger';
-
-        default:
-            return null;
-    }
-}
+const selectedCity = ref();
+const cities = ref([
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' },
+]);
 </script>
-
 <template>
-    <div class="flex flex-col">
-        <div class="card">
-            <div class="font-semibold text-xl">DataView</div>
-            <DataView :value="products" :layout="layout">
-                <template #header>
-                    <div class="flex justify-end">
-                        <SelectButton v-model="layout" :options="options" :allowEmpty="false">
-                            <template #option="{ option }">
-                                <i :class="[option === 'list' ? 'pi pi-bars' : 'pi pi-table']" />
-                            </template>
-                        </SelectButton>
-                    </div>
-                </template>
-
-                <template #list="slotProps">
-                    <div class="flex flex-col">
-                        <div v-for="(item, index) in slotProps.items" :key="index">
-                            <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
-                                :class="{ 'border-t border-surface': index !== 0 }">
-                                <div class="md:w-40 relative">
-                                    <img class="block xl:block mx-auto rounded w-full"
-                                        :src="`https://primefaces.org/cdn/primevue/images/product/${item.image}`"
-                                        :alt="item.name" />
-                                    <Tag :value="item.inventoryStatus" :severity="getSeverity(item)"
-                                        class="absolute dark:!bg-surface-900" style="left: 4px; top: 4px"></Tag>
+    <div class="mb-4">
+        <div class="col-span-12 xl:col-span-12 mb-6">
+            <span class="text-xl font-bold">Account Billing</span>
+        </div>
+        <div class="col-span-12 xl:col-span-12">
+            <router-link :to="'/news'">
+                <NotificationView />
+            </router-link>
+        </div>
+    </div>
+    <div v-animateonscroll="{ enterClass: 'animate-fadein', leaveClass: 'animate-fadein' }"
+        class="animate-duration-700">
+        <div class="card mb-8">
+            <Tabs value="0">
+                <TabList>
+                    <Tab value="0" as="div" class="flex items-center gap-2">
+                        <i class="pi pi-user"></i>
+                        <span class="font-bold whitespace-nowrap">Invoices</span>
+                    </Tab>
+                </TabList>
+                <TabPanels>
+                    <TabPanel value="0" as="p" class="m-0">
+                        <div class="grid grid-cols-12 gap-4">
+                            <div class="col-span-12 lg:col-span-2 xl:col-span-2">
+                                <div class="card">
+                                    <label>Invoice ID</label>
+                                    <AutoComplete v-model="selectedCountry" size="small"
+                                        :suggestions="filteredCountries" @complete="search" />
                                 </div>
-                                <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
-                                    <div class="flex flex-row md:flex-col justify-between items-start gap-2">
-                                        <div>
-                                            <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{
-                                                item.category }}</span>
-                                            <div class="text-lg font-medium mt-2">{{ item.name }}</div>
-                                        </div>
-                                        <div class="bg-surface-100 p-1" style="border-radius: 30px">
-                                            <div class="bg-surface-0 flex items-center gap-2 justify-center py-1 px-2"
-                                                style="
-                                                    border-radius: 30px;
-                                                    box-shadow:
-                                                        0px 1px 2px 0px rgba(0, 0, 0, 0.04),
-                                                        0px 1px 2px 0px rgba(0, 0, 0, 0.06);
-                                                ">
-                                                <span class="text-surface-900 font-medium text-sm">{{ item.rating
-                                                    }}</span>
-                                                <i class="pi pi-star-fill text-yellow-500"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-col md:items-end gap-8">
-                                        <span class="text-xl font-semibold">${{ item.price }}</span>
-                                        <div class="flex flex-row-reverse md:flex-row gap-2">
-                                            <Button icon="pi pi-heart" outlined></Button>
-                                            <Button icon="pi pi-shopping-cart" label="Buy Now"
-                                                :disabled="item.inventoryStatus === 'OUTOFSTOCK'"
-                                                class="flex-auto md:flex-initial whitespace-nowrap"></Button>
-                                        </div>
+                            </div>
+                            <div class="col-span-12 lg:col-span-2 xl:col-span-2">
+                                <div class="card">
+                                    <label>
+                                        Transation UUID</label>
+                                    <AutoComplete v-model="selectedCountry" size="small"
+                                        :suggestions="filteredCountries" @complete="search" />
+                                </div>
+                            </div>
+                            <div class="col-span-12 lg:col-span-2 xl:col-span-2">
+                                <div class="card">
+                                    <label>Invoice Entity: Service</label>
+                                    <Select v-model="selectedCity" size="small" :options="cities" optionLabel="name"
+                                        placeholder="Select a City" class="w-full md:w-40" />
+                                </div>
+                            </div>
+                            <div class="col-span-12 lg:col-span-2 xl:col-span-2">
+                                <div class="card">
+                                    <label>Invoice Paid Range: Start</label>
+                                    <DatePicker v-model="dates" size="small" selectionMode="range"
+                                        :manualInput="false" />
+                                </div>
+                            </div>
+                            <div class="col-span-12 lg:col-span-2 xl:col-span-2">
+                                <div class="card">
+                                    <label>Invoice Paid Range: End</label>
+                                    <DatePicker v-model="dates" selectionMode="range" size="small"
+                                        :manualInput="false" />
+                                </div>
+                            </div>
+                            <div class="col-span-12 lg:col-span-2 xl:col-span-2">
+                                <div class="card">
+                                    <label>Refresh</label>
+                                    <div class="mt-2">
+                                        <Button icon="pi pi-refresh" square raised />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </template>
-
-                <template #grid="slotProps">
-                    <div class="grid grid-cols-12 gap-4">
-                        <div v-for="(item, index) in slotProps.items" :key="index"
-                            class="col-span-12 sm:col-span-6 lg:col-span-4 p-2">
-                            <div
-                                class="p-6 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded flex flex-col">
-                                <div class="bg-surface-50 flex justify-center rounded p-4">
-                                    <div class="relative mx-auto">
-                                        <img class="rounded w-full"
-                                            :src="`https://primefaces.org/cdn/primevue/images/product/${item.image}`"
-                                            :alt="item.name" style="max-width: 300px" />
-                                        <Tag :value="item.inventoryStatus" :severity="getSeverity(item)"
-                                            class="absolute dark:!bg-surface-900" style="left: 4px; top: 4px"></Tag>
-                                    </div>
-                                </div>
-                                <div class="pt-6">
-                                    <div class="flex flex-row justify-between items-start gap-2">
-                                        <div>
-                                            <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{
-                                                item.category }}</span>
-                                            <div class="text-lg font-medium mt-1">{{ item.name }}</div>
-                                        </div>
-                                        <div class="bg-surface-100 p-1" style="border-radius: 30px">
-                                            <div class="bg-surface-0 flex items-center gap-2 justify-center py-1 px-2"
-                                                style="
-                                                    border-radius: 30px;
-                                                    box-shadow:
-                                                        0px 1px 2px 0px rgba(0, 0, 0, 0.04),
-                                                        0px 1px 2px 0px rgba(0, 0, 0, 0.06);
-                                                ">
-                                                <span class="text-surface-900 font-medium text-sm">{{ item.rating
-                                                    }}</span>
-                                                <i class="pi pi-star-fill text-yellow-500"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-col gap-6 mt-6">
-                                        <span class="text-2xl font-semibold">${{ item.price }}</span>
-                                        <div class="flex gap-2">
-                                            <Button icon="pi pi-shopping-cart" label="Buy Now"
-                                                :disabled="item.inventoryStatus === 'OUTOFSTOCK'"
-                                                class="flex-auto whitespace-nowrap"></Button>
-                                            <Button icon="pi pi-heart" outlined></Button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-            </DataView>
+                    </TabPanel>
+                </TabPanels>
+            </Tabs>
         </div>
 
-        <div class="flex flex-col lg:flex-row gap-8">
-            <div class="lg:w-2/3">
-                <div class="card">
-                    <div class="font-semibold text-xl mb-4">PickList</div>
-                    <PickList v-model="picklistProducts" breakpoint="1400px" dataKey="id">
-                        <template #option="{ option }">
-                            {{ option.name }}
-                        </template>
-                    </PickList>
-                </div>
-            </div>
+        <div class="card mb-8">
+            <DataTable ref="dt" v-model:selection="selectedProducts" :value="products" dataKey="id" :paginator="true"
+                :rows="10" :filters="filters" :rowsPerPageOptions="[5, 10, 25, 50]"
+                paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink  RowsPerPageDropdown">
+                <template #header>
+                    <div class="flex flex-wrap gap-2 items-center justify-between">
+                        <h4 class="m-0 font-bold text-xl">Preliminary / Proforma Invoices
+                        </h4>
+                        <p class="text-muted-color">Proforma invoices are provisional statements that are reissued on an
+                            ongoing basis to reflect
+                            possible changes to service terms and new orders and to give you a position preview of the
+                            end-of-month invoice. When the due date is reached, the invoices are offset against existing
+                            customer credit and converted into a regular, bookable invoice in the table below this one.
+                            A new proforma invoice is then created for the following month, which follows the same
+                            principle.</p>
+                    </div>
+                </template>
 
-            <div class="lg:w-1/3">
-                <div class="card">
-                    <div class="font-semibold text-xl mb-4">OrderList</div>
-                    <OrderList v-model="orderlistProducts" breakpoint="1400px" dataKey="id" pt:pcList:root="w-full">
-                        <template #option="{ option }">
-                            {{ option.name }}
-                        </template>
-                    </OrderList>
-                </div>
-            </div>
+                <Column field="code" header="UUID" sortable style="min-width: 8rem"></Column>
+                <Column field="inventoryStatus" header="Invoice#" sortable style="min-width: 8rem">
+                    <template #body="slotProps">
+                        <Tag :value="slotProps.data.inventoryStatus"
+                            :severity="getStatusLabel(slotProps.data.inventoryStatus)" />
+                    </template>
+                </Column>
+                <Column field="name" header="Amount(Net)" sortable style="min-width: 8rem" class="text-medium"></Column>
+                <Column field="price" header="Amount(Gross)" sortable style="min-width: 8rem">
+                    <template #body="slotProps">
+                        {{ formatCurrency(slotProps.data.price) }}
+                    </template>
+                </Column>
+                <Column field="category" header="Invoice Date" sortable style="min-width: 10rem"></Column>
+                <Column field="dueStatus" header="Due Date" sortable style="min-width: 8rem">
+                    <template #body="slotProps">
+                        <Tag :value="slotProps.data.inventoryStatus"
+                            :severity="getStatusLabel(slotProps.data.inventoryStatus)" />
+                    </template>
+                </Column>
+                <Column field="paidStatus" header="Paid Date" sortable style="min-width: 8rem">
+                    <template #body="slotProps">
+                        <Tag :value="slotProps.data.inventoryStatus"
+                            :severity="getStatusLabel(slotProps.data.inventoryStatus)" />
+                    </template>
+                </Column>
+                <Column field="action" header="Action" sortable style="min-width: 8rem"></Column>
+            </DataTable>
+        </div>
+
+        <div class="card mb-8">
+            <DataTable ref="dt" v-model:selection="selectedProducts" :value="products" dataKey="id" :paginator="true"
+                :rows="10" :filters="filters" :rowsPerPageOptions="[5, 10, 25, 50]"
+                paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink  RowsPerPageDropdown">
+                <template #header>
+                    <div class="flex flex-wrap gap-2 items-center justify-between">
+                        <h4 class="m-0 font-bold text-xl">Invoices
+                        </h4>
+                    </div>
+                </template>
+
+                <Column field="code" header="UUID" sortable style="min-width: 8rem"></Column>
+                <Column field="inventoryStatus" header="Invoice#" sortable style="min-width: 8rem">
+                    <template #body="slotProps">
+                        <Tag :value="slotProps.data.inventoryStatus"
+                            :severity="getStatusLabel(slotProps.data.inventoryStatus)" />
+                    </template>
+                </Column>
+                <Column field="name" header="Amount(Net)" sortable style="min-width: 8rem" class="text-medium"></Column>
+                <Column field="price" header="Amount(Gross)" sortable style="min-width: 8rem">
+                    <template #body="slotProps">
+                        {{ formatCurrency(slotProps.data.price) }}
+                    </template>
+                </Column>
+                <Column field="category" header="Invoice Date" sortable style="min-width: 10rem"></Column>
+                <Column field="dueStatus" header="Due Date" sortable style="min-width: 8rem">
+                    <template #body="slotProps">
+                        <Tag :value="slotProps.data.inventoryStatus"
+                            :severity="getStatusLabel(slotProps.data.inventoryStatus)" />
+                    </template>
+                </Column>
+                <Column field="paidStatus" header="Paid Date" sortable style="min-width: 8rem">
+                    <template #body="slotProps">
+                        <Tag :value="slotProps.data.inventoryStatus"
+                            :severity="getStatusLabel(slotProps.data.inventoryStatus)" />
+                    </template>
+                </Column>
+                <Column field="action" header="Action" sortable style="min-width: 8rem"></Column>
+            </DataTable>
         </div>
     </div>
 </template>
