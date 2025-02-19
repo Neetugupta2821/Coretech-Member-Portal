@@ -35,7 +35,7 @@ const getSeverity = (product) => {
                     <span class="text-xl font-bold">Scheduled Maintenance</span>
                 </div>
             </template>
-            <Column field="name" header="DETAIL"></Column>
+            <Column field="name" header="DETAIL" class="font-bold"></Column>
             <Column header="STATUS">
                 <template #body="slotProps">
                     <Tag :value="slotProps.data.inventoryStatus" :severity="getSeverity(slotProps.data)" />

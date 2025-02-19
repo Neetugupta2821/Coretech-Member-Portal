@@ -4,7 +4,7 @@ const layoutConfig = reactive({
     preset: 'Aura',
     primary: 'orange',
     surface: 'slate',
-    darkTheme: false,
+    darkTheme: true,
     menuMode: 'static'
 });
 
@@ -42,9 +42,10 @@ export function useLayout() {
         }
         if (window.innerWidth > 991) {
             layoutState.staticMenuDesktopInactive = !layoutState.staticMenuDesktopInactive;
-        } else {
-            layoutState.staticMenuMobileActive = !layoutState.staticMenuMobileActive;
         }
+        // } else {
+        //     layoutState.staticMenuMobileActive = !layoutState.staticMenuMobileActive;
+        // }
     };
 
     const isSidebarActive = computed(() => layoutState.overlayMenuActive || layoutState.staticMenuMobileActive);

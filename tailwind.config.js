@@ -10,6 +10,16 @@ module.exports = {
             lg: '992px',
             xl: '1200px',
             '2xl': '1920px'
+        },
+        extend: {
+            colors: {
+                primaryColors: {
+                    DEFAULT: '#f97316' // Orange
+                },
+                surface: {
+                    DEFAULT: '#64748b' // Slate
+                }
+            }
         }
     }
 };

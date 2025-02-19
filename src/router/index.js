@@ -126,7 +126,7 @@ const router = createRouter({
                     path: '/info/about',
                     name: 'about',
                     component: () => import('@/views/support/information/About.vue')
-                },
+                }
             ]
         },
         {
