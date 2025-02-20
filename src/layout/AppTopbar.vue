@@ -8,21 +8,21 @@ import { ref } from "vue";
 const menu = ref();
 const items = ref([
     {
-        label: 'File',
-        icon: 'pi pi-file',
-
+        label: 'Total Credit', // Correct label
+        amount: 0.00,  // Store the amount here
+        icon: 'pi pi-dollar',
     },
     {
-        label: 'Edit',
-        icon: 'pi pi-file-edit',
-
+        label: 'Available Credit', // Correct label
+        amount: 0.00, // Store the amount here
+        icon: 'pi pi-dollar',
     },
     {
-        label: 'Search',
-        icon: 'pi pi-search'
+        label: 'Blocked Credit', // Correct label
+        amount: 0.00, // Store the amount here
+        icon: 'pi pi-dollar'
     },
-
-]);
+])
 
 const toggle = (event) => {
     menu.value.toggle(event);
@@ -38,13 +38,13 @@ const toast = useToast();
 
 const items3 = [
     {
-        label: 'Update',
+        label: 'Account Settings',
         command: () => {
             toast.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated', life: 3000 });
         }
     },
     {
-        label: 'Delete',
+        label: 'Frequently Asked',
         command: () => {
             toast.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted', life: 3000 });
         }
@@ -53,7 +53,7 @@ const items3 = [
         separator: true
     },
     {
-        label: 'Quit',
+        label: 'Log Out',
         command: () => {
             window.location.href = 'https://vuejs.org/';
         }
@@ -63,10 +63,10 @@ const items3 = [
 const save = () => {
     toast.add({ severity: 'success', summary: 'Success', detail: 'Data Saved', life: 3000 });
 };
- 
+
 
 const show = () => {
-     
+
     toast.add({ severity: 'info', summary: 'Text Copied!', detail: 'Message Content', life: 3000 });
 };
 </script>
@@ -92,18 +92,22 @@ const show = () => {
                         />
                     </g>
                 </svg> -->
-                <span><img src="../assets/images/logo.png" alt="logo" width="140" /></span>
+                <span>
+                    <img src="../assets/images/logoblack.png" alt="Dark Logo" class="w-40 block dark:hidden" />
+                    <img src="../assets/images/logo.png" alt="Light Logo" class="w-40 hidden dark:block" />
+                </span>
             </router-link>
-            <button class="layout-menu-button layout-topbar-action" @click="toggleMenu">
+            <button class="layout-menu-button layout-topbar-action" style="margin: 0px 29px" @click="toggleMenu">
                 <font-awesome-icon :icon="['far', 'circle-dot']" />
             </button>
-       
+
         </div>
         <div>
-             <div><i class="pi pi-info-circle" style="color: #28c76f; margin-right:8px; font-size: 18px;" ></i><span style="padding: 0px 0px 6px 3px;">Abilities last updated: 2/18/2025, 12:22 PM</span> </div>
+            <div><i class="pi pi-info-circle" style="color: #28c76f; margin-right:8px; font-size: 18px;"></i><span
+                    style="padding: 0px 0px 6px 3px;">Abilities last updated: 2/18/2025, 12:22 PM</span> </div>
         </div>
         <div class="layout-topbar-actions">
-         
+
             <div class="layout-config-menu">
                 <button type="button" class="layout-topbar-action" @click="toggleDarkMode">
                     <i :class="['pi', { 'pi-sun': isDarkTheme, 'pi-moon': !isDarkTheme }]"></i>
@@ -114,7 +118,7 @@ const show = () => {
                     <TieredMenu ref="menu" id="overlay_tmenu" :model="items" popup />
 
                 </div>
-                <!-- <div class="relative">
+                <div class="relative">
                     <button
                         v-styleclass="{ selector: '@next', enterFromClass: 'hidden', enterActiveClass: 'animate-scalein', leaveToClass: 'hidden', leaveActiveClass: 'animate-fadeout', hideOnOutsideClick: true }"
                         type="button"
@@ -123,16 +127,16 @@ const show = () => {
                         <i class="pi pi-palette"></i>
                     </button>
                     <AppConfigurator />
-                </div> -->
+                </div>
             </div>
-            
+
             <button class="layout-topbar-menu-button layout-topbar-action"
                 v-styleclass="{ selector: '@next', enterFromClass: 'hidden', enterActiveClass: 'animate-scalein', leaveToClass: 'hidden', leaveActiveClass: 'animate-fadeout', hideOnOutsideClick: true }">
                 <i class="pi pi-ellipsis-v"></i>
             </button>
-           
+
             <div class="layout-topbar-menu hidden lg:block">
-                
+
                 <div class="layout-topbar-menu-content">
                     <!-- <button type="button" class="layout-topbar-action">
                         <i class="pi pi-calendar"></i>
@@ -146,9 +150,10 @@ const show = () => {
                         <p v-tooltip.bottom="'Veena Kumari'" style="font-weight: 600; font-size: 16px;">
                             Veena Kumari(431dc740<span>
                                 <Toast />
-                                <i class="pi pi-mobile" style="color: #00cfe8;padding: 0px 2px;"  @click="show()">
+                                <i class="pi pi-mobile" style="color: #00cfe8;padding: 0px 2px;" @click="show()">
 
-                                </i></span>)
+                                </i>
+                            </span>)
                         </p>
 
                     </div>
