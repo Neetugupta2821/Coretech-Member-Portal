@@ -3,11 +3,7 @@ import NotificationView from '@/components/dashboard/NotificationView.vue'; impo
 
 const selectedCity = ref();
 const cities = ref([
-    { name: 'New York', code: 'NY' },
-    { name: 'Rome', code: 'RM' },
-    { name: 'London', code: 'LDN' },
-    { name: 'Istanbul', code: 'IST' },
-    { name: 'Paris', code: 'PRS' },
+
 ]);
 </script>
 <template>
@@ -38,7 +34,7 @@ const cities = ref([
                                 <div class="card">
                                     <label>Invoice ID</label>
                                     <AutoComplete v-model="selectedCountry" size="small"
-                                        :suggestions="filteredCountries" @complete="search" />
+                                        :suggestions="filteredCountries" @complete="search"/>
                                 </div>
                             </div>
                             <div class="col-span-12 lg:col-span-2 xl:col-span-2">
@@ -53,7 +49,7 @@ const cities = ref([
                                 <div class="card">
                                     <label>Invoice Entity: Service</label>
                                     <Select v-model="selectedCity" size="small" :options="cities" optionLabel="name"
-                                        placeholder="Select a City" class="w-full md:w-40" />
+                                        placeholder="Select a City" />
                                 </div>
                             </div>
                             <div class="col-span-12 lg:col-span-2 xl:col-span-2">

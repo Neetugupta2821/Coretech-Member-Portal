@@ -8,20 +8,21 @@ import { ref } from "vue";
 const menu = ref();
 const items = ref([
     {
-        label: 'File',
-        icon: 'pi pi-file',
-
+        label: 'Total Credit', // Correct label
+        amount: 0.00,  // Store the amount here
+        icon: 'pi pi-dollar',
     },
     {
-        label: 'Edit',
-        icon: 'pi pi-file-edit',
-
+        label: 'Available Credit', // Correct label
+        amount: 0.00, // Store the amount here
+        icon: 'pi pi-dollar',
     },
     {
-        label: 'Search',
-        icon: 'pi pi-search'
+        label: 'Blocked Credit', // Correct label
+        amount: 0.00, // Store the amount here
+        icon: 'pi pi-dollar'
     },
-]);
+])
 
 const toggle = (event) => {
     menu.value.toggle(event);
@@ -37,13 +38,13 @@ const toast = useToast();
 
 const items3 = [
     {
-        label: 'Update',
+        label: 'Account Settings',
         command: () => {
             toast.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated', life: 3000 });
         }
     },
     {
-        label: 'Delete',
+        label: 'Frequently Asked',
         command: () => {
             toast.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted', life: 3000 });
         }
@@ -52,7 +53,7 @@ const items3 = [
         separator: true
     },
     {
-        label: 'Quit',
+        label: 'Log Out',
         command: () => {
             window.location.href = 'https://vuejs.org/';
         }
@@ -61,6 +62,19 @@ const items3 = [
 
 const save = () => {
     toast.add({ severity: 'success', summary: 'Success', detail: 'Data Saved', life: 3000 });
+};
+
+
+const show = () => {
+
+    toast.add({ severity: 'info', summary: 'Text Copied!', detail: 'Message Content', life: 3000 });
+};
+
+
+const isMenuOpen = ref(false);
+
+const toggleMenu2 = () => {
+    isMenuOpen.value = !isMenuOpen.value;
 };
 </script>
 
@@ -85,44 +99,43 @@ const save = () => {
                         />
                     </g>
                 </svg> -->
-                <span><img src="../assets/images/logo.png" alt="logo" width="140" /></span>
+                <span>
+                    <img src="../assets/images/logoblack.png" alt="Dark Logo" class="w-40 block dark:hidden" />
+                    <img src="../assets/images/logo.png" alt="Light Logo" class="w-40 hidden dark:block" />
+                </span>
             </router-link>
-            <button class="layout-menu-button layout-topbar-action" @click="toggleMenu">
+            <button class="layout-menu-button layout-topbar-action" style="margin: 0px 29px" @click="toggleMenu">
                 <font-awesome-icon :icon="['far', 'circle-dot']" />
             </button>
-
         </div>
         <div>
-             <div><i class="pi pi-info-circle" style="color: #28c76f; margin-right:8px; font-size: 18px;" ></i><span style="padding: 0px 0px 6px 3px;">Abilities last updated: 2/18/2025, 12:22 PM</span> </div>
+            <div><i class="pi pi-info-circle" style="color: #28c76f; margin-right:8px; font-size: 18px;"></i><span
+                    style="padding: 0px 0px 6px 3px;">Abilities last updated: 2/18/2025, 12:22 PM</span> </div>
         </div>
         <div class="layout-topbar-actions">
-
             <div class="layout-config-menu">
                 <button type="button" class="layout-topbar-action" @click="toggleDarkMode">
                     <i :class="['pi', { 'pi-sun': isDarkTheme, 'pi-moon': !isDarkTheme }]"></i>
                 </button>
                 <div :style="{ color: textColor, fontSize: 17 + 'px', padding: 5 + 'px', fontWeight: 600 }">
-                    <Button type="button" label="€0.00" @click="toggle" aria-haspopup="true" unstyled="false"
+                    <Button  type="button" label="€0.00" @click="toggle" aria-haspopup="true" unstyled="false"
                         size="large" aria-controls="overlay_tmenu" />
                     <TieredMenu ref="menu" id="overlay_tmenu" :model="items" popup />
                 </div>
-                <div class="relative">
+                <!-- <div class="relative">
                     <button
                         v-styleclass="{ selector: '@next', enterFromClass: 'hidden', enterActiveClass: 'animate-scalein', leaveToClass: 'hidden', leaveActiveClass: 'animate-fadeout', hideOnOutsideClick: true }"
                         type="button" class="layout-topbar-action layout-topbar-action-highlight">
                         <i class="pi pi-palette"></i>
                     </button>
                     <AppConfigurator />
-                </div>
+                </div> -->
             </div>
-
             <button class="layout-topbar-menu-button layout-topbar-action"
                 v-styleclass="{ selector: '@next', enterFromClass: 'hidden', enterActiveClass: 'animate-scalein', leaveToClass: 'hidden', leaveActiveClass: 'animate-fadeout', hideOnOutsideClick: true }">
                 <i class="pi pi-ellipsis-v"></i>
             </button>
-
             <div class="layout-topbar-menu hidden lg:block">
-
                 <div class="layout-topbar-menu-content">
                     <!-- <button type="button" class="layout-topbar-action">
                         <i class="pi pi-calendar"></i>
@@ -136,21 +149,39 @@ const save = () => {
                         <p v-tooltip.bottom="'Veena Kumari'" style="font-weight: 600; font-size: 16px;">
                             Veena Kumari(431dc740<span>
                                 <Toast />
-                                <i class="pi pi-mobile" style="color: #00cfe8;padding: 0px 2px;"  @click="show()">
-
-                                </i></span>)
+                                <i class="pi pi-mobile" style="color: #00cfe8;padding: 0px 2px;" @click="show()">
+                                </i>
+                            </span>)
                         </p>
-
                     </div>
+                    <!-- <div type="button" class="profile-menu"> -->
 
-                    <div type="button" class="profile-menu">
-
-                        <div>
+                    <div class="profile" @click="toggleMenu2"
+                        style="background-color: rgba(235, 96, 63, .12);color: #eb603f ;padding: 10px; border-radius: 50px;">
+                        <div class="img-box">
+                            <i class="pi pi-user" style="font-size: 18px;"></i>
+                            <!-- <img src="https://i.postimg.cc/BvNYhMHS/user-img.jpg" alt="User Image"> -->
+                        </div>
+                    </div>
+                    <div class="menu dark:bg-zinc-900 bg-white" :class="{ active: isMenuOpen }">
+                        <ul>
+                            <li><a href="#" class="text-black dark:text-white items-center"><i
+                                        class="ph-bold ph-user"></i>&nbsp;Account Settings</a></li>
+                            <li><a href="#" class="text-black dark:text-white"><i
+                                        class="ph-bold ph-envelope-simple"></i>&nbsp;Frequently Asked</a>
+                            </li>
+                            <Divider />
+                            <li><a href="#" class="text-black dark:text-white"><i
+                                        class="ph-bold ph-gear-six"></i>&nbsp;Log Out</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- <div>
                             <SplitButton class="p-splitbutton-button" :model="items3" outlined="true" label=" "
                                 icon="pi pi-user" rounded="false" text="false" size="large" plain="false" dt="any" />
-                        </div>
+                        </div> -->
 
-                    </div>
+                    <!-- </div> -->
 
                 </div>
             </div>
@@ -179,5 +210,142 @@ const save = () => {
 .profile-menu {
     display: flex;
     align-items: center;
+}
+
+/* nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: #fff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} */
+
+/* / menu toggle / */
+.menu-toggle {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    cursor: not-allowed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-toggle::before {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 4px;
+    background: #000;
+    box-shadow: 0 8px 0 #000, 0 -8px 0 #000;
+}
+
+/* / profile menu / */
+.profile {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    text-align: end;
+}
+
+.profile h3 {
+    text-align: end;
+    line-height: 1;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.profile p {
+    line-height: 1;
+    font-size: 14px;
+    opacity: .6;
+}
+
+/* .profile .img-box {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+}   */
+
+.profile .img-box img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* / menu / */
+.menu {
+    position: absolute;
+    top: calc(100% + 11px);
+    right: 15px;
+    width: 170px;
+    min-height: 100px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+    opacity: 0;
+    transform: translateY(-10px);
+    visibility: hidden;
+    transition: 300ms;
+    z-index: 999;
+}
+
+/* .menu::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: 14px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  transform: rotate(45deg);
+  z-index: -1;
+} */
+
+.menu.active {
+    opacity: 1;
+    /* / transform: translateY(0); / */
+    visibility: visible;
+}
+
+/* / menu links / */
+.menu ul {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.menu ul li {
+    list-style: none;
+}
+
+.menu ul li:hover {
+    background: rgba(226, 162, 101, 0.7);
+    color: orange;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 8px 20px;
+    gap: 6px;
+}
+
+.menu ul li a i {
+    font-size: 1.2em;
 }
 </style>

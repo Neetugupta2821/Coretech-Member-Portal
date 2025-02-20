@@ -5,6 +5,16 @@
         margin-left: auto !important;
         margin-right: auto !important;
     }
+    .layout-wrapper {
+        &.layout-static {
+            &.layout-static-inactive {
+                .layout-sidebar {
+                    transform: translateX(-100%);
+                    // left: 280px;
+                }
+            }
+        }
+    }
 }
 
 @media (min-width: 992px) {

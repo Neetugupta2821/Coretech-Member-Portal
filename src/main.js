@@ -15,31 +15,33 @@ import '@/assets/styles.scss';
 import '@/assets/tailwind.css';
 
 router.afterEach((to) => {
-    // Set class or id on body based on the route name or path
     console.log('-----', to);
     const routeClass = to.name || to.path.replace(/\//g, '-'); // Use route name or path
     document.body.className = ''; // Reset existing classes
     document.body.classList.add(`${routeClass}`); // Add a custom class
     document.body.id = `${routeClass}`; // Add a custom ID (optional)
 });
-console.log('Hello neetu gupta');
+console.log('Date:20/2/2025, time:4:36pm');
 const app = createApp(App);
 
 app.use(router);
 app.use(store);
 app.component('font-awesome-icon', FontAwesomeIcon);
 app.directive('tooltip', Tooltip);
+
 export default {
     components: {
         FontAwesomeIcon
     }
 };
+
 library.add(faCircleDot);
 app.use(PrimeVue, {
     theme: {
         preset: Aura,
         options: {
-            darkModeSelector: '.app-dark'
+            darkModeSelector: '.app-dark',
+
         }
     }
 });

@@ -3,7 +3,7 @@ const layoutConfig = reactive({
     preset: 'Aura',
     primary: 'orange',
     surface: 'slate',
-    darkTheme: false,
+    darkTheme: true,
     menuMode: 'static'
 });
 

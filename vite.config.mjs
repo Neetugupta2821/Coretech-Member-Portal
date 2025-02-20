@@ -16,6 +16,7 @@ export default defineConfig({
             resolvers: [PrimeVueResolver()]
         })
     ],
+    base: '/coretech/',
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url))

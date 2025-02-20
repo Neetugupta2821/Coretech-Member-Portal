@@ -5,7 +5,7 @@ const isAuthenticated = () => {
     return localStorage.getItem('userToken') !== null;
 };
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory('/coretech'),
     routes: [
         {
             path: '/auth/login',
@@ -155,7 +155,8 @@ const router = createRouter({
             name: 'error',
             component: () => import('@/views/pages/auth/Error.vue')
         }
-    ]
+    ],
+
 });
 
 // Navigation Guard: Check authentication before each route
