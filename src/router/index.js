@@ -1,9 +1,6 @@
 import AppLayout from '@/layout/AppLayout.vue';
 import { createRouter, createWebHistory } from 'vue-router';
-const isAuthenticated = () => {
-    // Replace with actual authentication logic (e.g., checking localStorage or Vuex store)
-    return localStorage.getItem('userToken') !== null;
-};
+
 const router = createRouter({
     history: createWebHistory('/coretech'),
     routes: [
@@ -13,13 +10,29 @@ const router = createRouter({
             component: () => import('@/views/pages/auth/Login.vue')
         },
         {
+            path: '/auth/forgetpassword',
+            name: 'forget',
+            component: () => import('@/views/pages/auth/Forget.vue')
+        },
+        {
+            path: '/auth/otpgenerate',
+            name: 'otpgenerate',
+            component: () => import('@/views/pages/auth/OtpGenerate.vue')
+        },
+        {
+            path: '/auth/resetpassword',
+            name: 'resetpassword',
+            component: () => import('@/views/pages/auth/ResetPassword.vue')
+        },
+        {
             path: '/',
             component: AppLayout,
             children: [
                 {
                     path: '/',
                     name: 'dashboard',
-                    component: () => import('@/views/Dashboard.vue')
+                    component: () => import('@/views/Dashboard.vue'),
+                    meta: { requiresAuth: true }
                 },
                 {
                     path: '/news',
@@ -130,22 +143,6 @@ const router = createRouter({
             ]
         },
         {
-            path: '/landing',
-            name: 'landing',
-            component: () => import('@/views/pages/Landing.vue')
-        },
-        {
-            path: '/pages/notfound',
-            name: 'notfound',
-            component: () => import('@/views/pages/NotFound.vue')
-        },
-
-        // {
-        //     path: '/auth/login',
-        //     name: 'login',
-        //     component: () => import('@/views/pages/auth/Login.vue')
-        // },
-        {
             path: '/auth/access',
             name: 'accessDenied',
             component: () => import('@/views/pages/auth/Access.vue')
@@ -155,16 +152,17 @@ const router = createRouter({
             name: 'error',
             component: () => import('@/views/pages/auth/Error.vue')
         }
-    ],
-
+    ]
 });
 
-// Navigation Guard: Check authentication before each route
+// Global Navigation Guard
 router.beforeEach((to, from, next) => {
-    if (to.meta.requiresAuth && !isAuthenticated()) {
-        next('/auth/login'); // Redirect to login if not authenticated
+    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+
+    if (to.meta.requiresAuth && !isAuthenticated) {
+        next('/auth/login');
     } else {
-        next(); // Continue if authenticated
+        next();
     }
 });
 

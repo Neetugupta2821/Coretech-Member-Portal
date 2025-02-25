@@ -26,7 +26,7 @@ const value = ref(null);
                     <InputText type="text" v-model="value" />
                 </div>
             </div>
-            <Button type="submit" severity="secondary" label="Save" class="bg-orange-400/10" />
+            <Button type="submit" label="Save" class="bg-orange-400/10" />
             <Button type="submit" severity="secondary" label="Reset" />
         </div>
     </Form>

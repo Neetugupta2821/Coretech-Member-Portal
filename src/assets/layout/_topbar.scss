@@ -12,7 +12,8 @@
     transition: left var(--layout-section-transition-duration);
     display: flex;
     align-items: center;
-
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    
     .layout-topbar-logo-container {
         width: 20rem;
         display: flex;
