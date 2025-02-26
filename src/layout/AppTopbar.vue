@@ -69,6 +69,19 @@ const show = () => {
 
     toast.add({ severity: 'info', summary: 'Text Copied!', detail: 'Message Content', life: 3000 });
 };
+
+
+const isMenuOpen = ref(false);
+
+const toggleMenu2 = () => {
+    isMenuOpen.value = !isMenuOpen.value;
+};
+const isDropdownOpen = ref(false);
+ 
+
+const toggleDropdown = () => {
+  isDropdownOpen.value = !isDropdownOpen.value;
+};
 </script>
 
 <template>
@@ -101,6 +114,7 @@ const show = () => {
                 <font-awesome-icon :icon="['far', 'circle-dot']" />
             </button>
 
+
         </div>
         <div>
             <div><i class="pi pi-info-circle" style="color: #28c76f; margin-right:8px; font-size: 18px;"></i><span
@@ -108,34 +122,99 @@ const show = () => {
         </div>
         <div class="layout-topbar-actions">
 
+
             <div class="layout-config-menu">
                 <button type="button" class="layout-topbar-action" @click="toggleDarkMode">
                     <i :class="['pi', { 'pi-sun': isDarkTheme, 'pi-moon': !isDarkTheme }]"></i>
                 </button>
+
+
                 <div :style="{ color: textColor, fontSize: 17 + 'px', padding: 5 + 'px', fontWeight: 600 }">
-                    <Button type="button" label="€0.00" @click="toggle" aria-haspopup="true" unstyled="false"
+                     <button @click="toggleDropdown">Toggle Dropdown</button>
+                    <div id="dropdownRadioHelper"   v-if="isDropdownOpen"
+                    class="z-10  hidden  bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-60 dark:bg-gray-700 dark:divide-gray-600">
+                    <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200"
+                        aria-labelledby="dropdownRadioHelperButton">
+                        <li>
+                            <div class="flex p-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-600">
+                                <div class="flex items-center h-5">
+                                    <input id="helper-radio-4" name="helper-radio" type="radio" value="individual"
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                        v-model="selectedRadio" />
+                                </div>
+                                <div class="ms-2 text-sm">
+                                    <label for="helper-radio-4" class="font-medium text-gray-900 dark:text-gray-300">
+                                        <div>Individual</div>
+                                        <p id="helper-radio-text-4"
+                                            class="text-xs font-normal text-gray-500 dark:text-gray-300">
+                                            Some helpful instruction goes over here.
+                                        </p>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex p-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-600">
+                                <div class="flex items-center h-5">
+                                    <input id="helper-radio-5" name="helper-radio" type="radio" value="company"
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                        v-model="selectedRadio" />
+                                </div>
+                                <div class="ms-2 text-sm">
+                                    <label for="helper-radio-5" class="font-medium text-gray-900 dark:text-gray-300">
+                                        <div>Company</div>
+                                        <p id="helper-radio-text-5"
+                                            class="text-xs font-normal text-gray-500 dark:text-gray-300">
+                                            Some helpful instruction goes over here.
+                                        </p>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex p-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-600">
+                                <div class="flex items-center h-5">
+                                    <input id="helper-radio-6" name="helper-radio" type="radio" value="nonprofit"
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                        v-model="selectedRadio" />
+                                </div>
+                                <div class="ms-2 text-sm">
+                                    <label for="helper-radio-6" class="font-medium text-gray-900 dark:text-gray-300">
+                                        <div>Non profit</div>
+                                        <p id="helper-radio-text-6"
+                                            class="text-xs font-normal text-gray-500 dark:text-gray-300">
+                                            Some helpful instruction goes over here.
+                                        </p>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                    <!-- <Button type="button" label="€0.00" @click="toggle" aria-haspopup="true" unstyled="false"
                         size="large" aria-controls="overlay_tmenu" />
-                    <TieredMenu ref="menu" id="overlay_tmenu" :model="items" popup />
+                    <TieredMenu ref="menu" id="overlay_tmenu" :model="items" popup /> -->
 
                 </div>
                 <div class="relative">
                     <button
                         v-styleclass="{ selector: '@next', enterFromClass: 'hidden', enterActiveClass: 'animate-scalein', leaveToClass: 'hidden', leaveActiveClass: 'animate-fadeout', hideOnOutsideClick: true }"
-                        type="button"
-                        class="layout-topbar-action layout-topbar-action-highlight"
-                    >
+                        type="button" class="layout-topbar-action layout-topbar-action-highlight">
                         <i class="pi pi-palette"></i>
                     </button>
                     <AppConfigurator />
                 </div>
             </div>
 
+
             <button class="layout-topbar-menu-button layout-topbar-action"
                 v-styleclass="{ selector: '@next', enterFromClass: 'hidden', enterActiveClass: 'animate-scalein', leaveToClass: 'hidden', leaveActiveClass: 'animate-fadeout', hideOnOutsideClick: true }">
                 <i class="pi pi-ellipsis-v"></i>
             </button>
 
+
             <div class="layout-topbar-menu hidden lg:block">
+
 
                 <div class="layout-topbar-menu-content">
                     <!-- <button type="button" class="layout-topbar-action">
@@ -158,14 +237,30 @@ const show = () => {
 
                     </div>
 
-                    <div type="button" class="profile-menu">
+                    <!-- <div type="button" class="profile-menu"> -->
 
-                        <div>
+                    <div class="profile" @click="toggleMenu2"
+                        style="background-color: rgba(235, 96, 63, .12);color: #eb603f ;padding: 10px; border-radius: 50px;">
+
+                        <div class="img-box">
+                            <i class="pi pi-user" style="font-size: 18px;"></i>
+                            <!-- <img src="https://i.postimg.cc/BvNYhMHS/user-img.jpg" alt="User Image"> -->
+                        </div>
+                    </div>
+                    <div class="menu" :class="{ active: isMenuOpen }">
+                        <ul>
+                            <li><a href="#"><i class="ph-bold ph-user"></i>&nbsp;Profile</a></li>
+                            <li><a href="#"><i class="ph-bold ph-envelope-simple"></i>&nbsp;Inbox</a></li>
+                            <li><a href="#"><i class="ph-bold ph-gear-six"></i>&nbsp;Settings</a></li>
+
+                        </ul>
+                    </div>
+                    <!-- <div>
                             <SplitButton class="p-splitbutton-button" :model="items3" outlined="true" label=" "
                                 icon="pi pi-user" rounded="false" text="false" size="large" plain="false" dt="any" />
-                        </div>
+                        </div> -->
 
-                    </div>
+                    <!-- </div> -->
 
                 </div>
             </div>
@@ -194,5 +289,143 @@ const show = () => {
 .profile-menu {
     display: flex;
     align-items: center;
+}
+
+/* nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: #fff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} */
+
+/* menu toggle */
+.menu-toggle {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    cursor: not-allowed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-toggle::before {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 4px;
+    background: #000;
+    box-shadow: 0 8px 0 #000, 0 -8px 0 #000;
+}
+
+/* profile menu */
+.profile {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    text-align: end;
+}
+
+.profile h3 {
+    text-align: end;
+    line-height: 1;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.profile p {
+    line-height: 1;
+    font-size: 14px;
+    opacity: .6;
+}
+
+/* .profile .img-box {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+}   */
+
+.profile .img-box img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* menu */
+.menu {
+    position: absolute;
+    top: calc(100% + 11px);
+    right: 15px;
+    width: 170px;
+    min-height: 100px;
+    background: #fff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+    opacity: 0;
+    transform: translateY(-10px);
+    visibility: hidden;
+    transition: 300ms;
+}
+
+/* .menu::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: 14px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  transform: rotate(45deg);
+  z-index: -1;
+} */
+
+.menu.active {
+    opacity: 1;
+    /* transform: translateY(0); */
+    visibility: visible;
+}
+
+/* menu links */
+.menu ul {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    background: #fff;
+}
+
+.menu ul li {
+    list-style: none;
+}
+
+.menu ul li:hover {
+    background: #eee;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: #000;
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    gap: 6px;
+}
+
+.menu ul li a i {
+    font-size: 1.2em;
 }
 </style>

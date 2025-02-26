@@ -5,7 +5,8 @@ const isAuthenticated = () => {
     return localStorage.getItem('userToken') !== null;
 };
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory('/coretech'), // Set the base path
+    
     routes: [
         {
             path: '/auth/login',

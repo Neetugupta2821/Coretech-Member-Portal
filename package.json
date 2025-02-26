@@ -1,6 +1,7 @@
 {
     "name": "core-tech",
     "version": "4.2.0",
+ 
     "scripts": {
         "dev": "vite",
         "build": "vite build",

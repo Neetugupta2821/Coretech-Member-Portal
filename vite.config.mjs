@@ -14,8 +14,10 @@ export default defineConfig({
         vue(),
         Components({
             resolvers: [PrimeVueResolver()]
-        })
+        }),
+         
     ],
+    base:"/coretech/",
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url))
