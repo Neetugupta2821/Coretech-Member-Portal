@@ -34,16 +34,16 @@ const model = ref([
                         icon: 'pi pi-asterisk',
                         to: '/offer'
                     },
-                    {
-                        label: 'Dedicated Servers',
-                        icon: 'pi pi-server',
-                        to: '/offer/dedicated'
-                    },
-                    {
-                        label: 'Service Addons',
-                        icon: 'pi pi-plus-circle',
-                        to: '/offer/addon/general'
-                    }
+                    // {
+                    //     label: 'Dedicated Servers',
+                    //     icon: 'pi pi-server',
+                    //     to: '/offer/dedicated'
+                    // },
+                    // {
+                    //     label: 'Service Addons',
+                    //     icon: 'pi pi-plus-circle',
+                    //     to: '/offer/addon/general'
+                    // }
                 ]
             },
         ]

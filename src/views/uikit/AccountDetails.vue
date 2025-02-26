@@ -66,8 +66,8 @@ const value = ref(null);
                     </div>
                 </div>
             </div>
-            <Button type="submit" severity="secondary" label="Save" class="bg-orange-400/10" />
-            <Button type="submit" severity="secondary" label="Reset" />
+            <Button type="submit" label="Save" class="bg-orange-400/10" />
+            <Button type="submit" severity="secondary" label="Reset" class="outline outline-black/5" />
         </div>
     </Form>
 </template>

@@ -1,13 +1,10 @@
 <script setup>
-import NotificationView from '@/components/dashboard/NotificationView.vue'; import { ref } from "vue";
+import NotificationView from '@/components/dashboard/NotificationView.vue';
+import { ref } from "vue";
 
 const selectedCity = ref();
 const cities = ref([
-    { name: 'New York', code: 'NY' },
-    { name: 'Rome', code: 'RM' },
-    { name: 'London', code: 'LDN' },
-    { name: 'Istanbul', code: 'IST' },
-    { name: 'Paris', code: 'PRS' },
+
 ]);
 </script>
 <template>
@@ -33,51 +30,50 @@ const cities = ref([
                 </TabList>
                 <TabPanels>
                     <TabPanel value="0" as="p" class="m-0">
-                        <div class="grid grid-cols-12 gap-4">
-                            <div class="col-span-12 lg:col-span-2 xl:col-span-2">
+                        <div class="grid grid-cols-5 gap-4">
+                            <div class="col-span-1">
                                 <div class="card">
                                     <label>Invoice ID</label>
                                     <AutoComplete v-model="selectedCountry" size="small"
                                         :suggestions="filteredCountries" @complete="search" />
                                 </div>
                             </div>
-                            <div class="col-span-12 lg:col-span-2 xl:col-span-2">
+                            <div class="col-span-1">
                                 <div class="card">
-                                    <label>
-                                        Transation UUID</label>
+                                    <label>Transaction UUID</label>
                                     <AutoComplete v-model="selectedCountry" size="small"
                                         :suggestions="filteredCountries" @complete="search" />
                                 </div>
                             </div>
-                            <div class="col-span-12 lg:col-span-2 xl:col-span-2">
+                            <div class="col-span-1">
                                 <div class="card">
                                     <label>Invoice Entity: Service</label>
                                     <Select v-model="selectedCity" size="small" :options="cities" optionLabel="name"
-                                        placeholder="Select a City" class="w-full md:w-40" />
+                                        placeholder="Select a City" />
                                 </div>
                             </div>
-                            <div class="col-span-12 lg:col-span-2 xl:col-span-2">
+                            <div class="col-span-1">
                                 <div class="card">
                                     <label>Invoice Paid Range: Start</label>
                                     <DatePicker v-model="dates" size="small" selectionMode="range"
                                         :manualInput="false" />
                                 </div>
                             </div>
-                            <div class="col-span-12 lg:col-span-2 xl:col-span-2">
+                            <div class="col-span-1">
                                 <div class="card">
                                     <label>Invoice Paid Range: End</label>
                                     <DatePicker v-model="dates" selectionMode="range" size="small"
                                         :manualInput="false" />
                                 </div>
                             </div>
-                            <div class="col-span-12 lg:col-span-2 xl:col-span-2">
+                            <!-- <div class="col-span-1">
                                 <div class="card">
                                     <label>Refresh</label>
                                     <div class="mt-2">
                                         <Button icon="pi pi-refresh" square raised />
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </TabPanel>
                 </TabPanels>

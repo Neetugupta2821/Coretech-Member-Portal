@@ -17,7 +17,11 @@ export default defineConfig({
         }),
          
     ],
+<<<<<<< HEAD
     base:"/coretech/",
+=======
+    base: '/coretech/',
+>>>>>>> feature-my-update
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url))

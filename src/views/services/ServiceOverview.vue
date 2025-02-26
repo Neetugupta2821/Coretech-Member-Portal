@@ -4,11 +4,7 @@ import { ref } from "vue";
 
 const selectedCity = ref();
 const cities = ref([
-    { name: 'New York', code: 'NY' },
-    { name: 'Rome', code: 'RM' },
-    { name: 'London', code: 'LDN' },
-    { name: 'Istanbul', code: 'IST' },
-    { name: 'Paris', code: 'PRS' },
+
 ]);
 </script>
 <template>
@@ -25,24 +21,18 @@ const cities = ref([
     <div v-animateonscroll="{ enterClass: 'animate-fadein', leaveClass: 'animate-fadeout' }"
         class="animate-duration-700 animate-ease-in-out">
         <div class="card mb-8">
-            <div class="grid grid-cols-12 gap-2">
-                <div class="col-span-12 lg:col-span-2 xl:col-span-4">
-                    <div class="card">
-                        <AutoComplete v-model="selectedCountry" size="small" :suggestions="filteredCountries"
-                            @complete="search" placeholder="Search by Description"/>
-                    </div>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="col-span-1">
+                    <AutoComplete v-model="selectedCountry" size="small" :suggestions="filteredCountries"
+                        @complete="search" placeholder="Search by Description" />
                 </div>
-                <div class="col-span-12 lg:col-span-2 xl:col-span-4">
-                    <div class="card">
-                        <AutoComplete v-model="selectedCountry" size="small" :suggestions="filteredCountries"
-                            @complete="search" placeholder="Search by contract" class="w-full md:w-56"/>
-                    </div>
+                <div class="col-span-1">
+                    <AutoComplete v-model="selectedCountry" size="small" :suggestions="filteredCountries"
+                        @complete="search" placeholder="Search by contract" />
                 </div>
-                <div class="col-span-12 lg:col-span-2 xl:col-span-4">
-                    <div class="card">
-                        <Select v-model="selectedCity" size="small" :options="cities" optionLabel="name"
-                            placeholder="Select a City" class="w-full md:w-56" />
-                    </div>
+                <div class="col-span-1">
+                    <Select v-model="selectedCity" size="small" :options="cities" optionLabel="name"
+                        placeholder="Select a City" class="" />
                 </div>
                 <!-- <div class="col-span-12 lg:col-span-2 xl:col-span-2">
                     <div class="card">
