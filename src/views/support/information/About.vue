@@ -38,21 +38,21 @@ const cities = ref([
                     </p>
                     <p>
                     <ul class="listitem mt-4 mb-4">
-                        <li class="text-muted-color hover:bg-slate-700">
-                            <span class="font-bold text-white">Version: </span>6.9.8+87c0ffb
+                        <li class="text-muted-color">
+                            <span class="font-bold dark:text-white text-gray-500">Version: </span>6.9.8+87c0ffb
                         </li>
                         <li class="text-muted-color">
-                            <span class="font-bold text-white"> Environment: </span>production
+                            <span class="font-bold dark:text-white text-gray-500"> Environment: </span>production
                         </li>
                         <li class="text-muted-color">
-                            <span class="font-bold text-white"> Branch: </span>HEAD
+                            <span class="font-bold dark:text-white text-gray-500"> Branch: </span>HEAD
                         </li>
                         <li class="text-muted-color">
-                            <span class="font-bold text-white"> Commit Hash:
+                            <span class="font-bold dark:text-white text-gray-500"> Commit Hash:
                             </span>87c0ffb1aee42c14f1bbe368df752d06daf48427
                         </li>
                         <li class="text-muted-color">
-                            <span class="font-bold text-white"> Commit Date: </span>2025-02-13T22:11:09+01:00
+                            <span class="font-bold dark:text-white text-gray-500"> Commit Date: </span>2025-02-13T22:11:09+01:00
                         </li>
                     </ul>
                     </p>
@@ -67,14 +67,14 @@ const cities = ref([
                     <ul class="listitem mt-4 mb-4">
                         <!-- hover:bg-slate-700 -->
                         <li class="text-muted-color ">
-                            <span class="font-bold text-white">Vue Js - </span>The Prograsive Javascript Framework
+                            <span class="font-bold dark:text-white text-gray-500">Vue Js - </span>The Prograsive Javascript Framework
                         </li>
                         <li class="text-muted-color">
-                            <span class="font-bold text-white"> CASL - </span> Isomorphic Authorization Javascript
+                            <span class="font-bold dark:text-white text-gray-500"> CASL - </span> Isomorphic Authorization Javascript
                             library
                         </li>
                         <li class="text-muted-color">
-                            <span class="font-bold text-white"> Sentry - Application Monitoring and Error Tracking
+                            <span class="font-bold dark:text-white text-gray-500"> Sentry - Application Monitoring and Error Tracking
                                 Software </span>HEAD
                         </li>
                         <li class="text-muted-color"> Json Web Tokens
@@ -91,20 +91,20 @@ const cities = ref([
                     <p>
                     <ul class="listitem mt-4 mb-4">
                         <li class="text-muted-color hover:bg-slate-700">
-                            <span class="font-bold text-white">Version: </span>6.9.8+87c0ffb
+                            <span class="font-bold dark:text-white text-gray-500">Version: </span>6.9.8+87c0ffb
                         </li>
                         <li class="text-muted-color">
-                            <span class="font-bold text-white"> Environment: </span>production
+                            <span class="font-bold dark:text-white text-gray-500"> Environment: </span>production
                         </li>
                         <li class="text-muted-color">
-                            <span class="font-bold text-white"> Branch: </span>HEAD
+                            <span class="font-bold dark:text-white text-gray-500"> Branch: </span>HEAD
                         </li>
                         <li class="text-muted-color">
-                            <span class="font-bold text-white"> Commit Hash:
+                            <span class="font-bold dark:text-white text-gray-500"> Commit Hash:
                             </span>87c0ffb1aee42c14f1bbe368df752d06daf48427
                         </li>
                         <li class="text-muted-color">
-                            <span class="font-bold text-white"> Commit Date: </span>2025-02-13T22:11:09+01:00
+                            <span class="font-bold dark:text-white text-gray-500"> Commit Date: </span>2025-02-13T22:11:09+01:00
                         </li>
                     </ul>
                     </p>

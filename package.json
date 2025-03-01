@@ -9,6 +9,8 @@
         "lint": "eslint --fix . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^44.2.1",
+        "@ckeditor/ckeditor5-vue": "^7.3.0",
         "@coreui/coreui": "^5.2.0",
         "@coreui/vue": "^5.4.1",
         "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -22,6 +24,7 @@
         "moment": "^2.30.1",
         "primeicons": "^7.0.0",
         "primevue": "^4.2.4",
+        "quill": "^2.0.3",
         "vue": "^3.4.34",
         "vue-axios": "^3.5.2",
         "vue-router": "^4.4.0",
@@ -32,7 +35,7 @@
     "devDependencies": {
         "@primevue/auto-import-resolver": "^4.2.4",
         "@rushstack/eslint-patch": "^1.8.0",
-        "@vitejs/plugin-vue": "^5.0.5",
+        "@vitejs/plugin-vue": "^5.2.1",
         "@vue/eslint-config-prettier": "^9.0.0",
         "autoprefixer": "^10.4.19",
         "eslint": "^8.57.0",

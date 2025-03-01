@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 
+const email = ref(localStorage.getItem('email') || '');
 const value = ref(null);
 </script>
 
@@ -10,7 +11,7 @@ const value = ref(null);
             <div class="col-span-12 lg:col-span-12 xl:col-span-12">
                 <div class="flex flex-col gap-1 ">
                     <label>Primary Address</label>
-                    <InputText type="text" v-model="value" />
+                    <InputText type="text" v-model="email" />
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-12 xl:col-span-12">

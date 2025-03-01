@@ -3,9 +3,18 @@ import { useLayout } from '@/layout/composables/layout';
 import AppConfigurator from './AppConfigurator.vue';
 import { useRouter } from 'vue-router';
 const router = useRouter()
-const { toggleMenu, toggleDarkMode, isDarkTheme, layoutConfig, layoutState, isSidebarActive } = useLayout();
-import { ref } from "vue";
+// const { toggleMenu, toggleDarkMode, isDarkTheme, layoutConfig, layoutState, isSidebarActive } = useLayout();
+const { toggleMenu, toggleDarkMode, isDarkTheme, } = useLayout();
+import { ref, onMounted } from "vue";
 
+const accesstoken = ref(localStorage.getItem('access_token') || '');
+console.log(accesstoken);
+// const refreshtoken = ref(localStorage.getItem('refresh_token') || '');
+const uuid = ref(localStorage.getItem('uuid') || '');
+// console.log(uuid)
+const firstname = ref(localStorage.getItem('firstname') || '');
+const lastname = ref(localStorage.getItem('lastname') || '');
+const company = ref(localStorage.getItem('company') || '');
 const menu = ref();
 const items = ref([
     {
@@ -25,6 +34,12 @@ const items = ref([
     },
 ])
 
+const lastUpdated = ref('');
+onMounted(() => {
+    const date = new Date();
+    lastUpdated.value = date.toLocaleString();
+});
+
 const toggle = (event) => {
     menu.value.toggle(event);
 };
@@ -32,34 +47,6 @@ const toggle = (event) => {
 import { useToast } from "primevue/usetoast";
 
 const toast = useToast();
-
-
-// import { useToast } from "primevue/usetoast";
-// const toast = useToast();
-
-// const items3 = [
-//     {
-//         label: 'Account Settings',
-//         command: () => {
-//             toast.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated', life: 3000 });
-//         }
-//     },
-//     {
-//         label: 'Frequently Asked',
-//         command: () => {
-//             toast.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted', life: 3000 });
-//         }
-//     },
-//     {
-//         separator: true
-//     },
-//     {
-//         label: 'Log Out',
-//         command: () => {
-//             window.location.href = 'https://vuejs.org/';
-//         }
-//     }
-// ];
 
 const save = () => {
     toast.add({ severity: 'success', summary: 'Success', detail: 'Data Saved', life: 3000 });
@@ -80,7 +67,7 @@ const logout = () => {
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('child');
     localStorage.removeItem('isAuthenticated');
-    router.push('/auth/login');
+    router.push('/login');
 };
 </script>
 
@@ -98,10 +85,12 @@ const logout = () => {
             </button>
         </div>
         <div>
-            <div><i class="pi pi-info-circle" style="color: #28c76f; margin-right:8px; font-size: 18px;"></i><span
-                    style="padding: 0px 0px 6px 3px;">Abilities last updated: 2/18/2025, 12:22 PM</span> </div>
+            <div>
+                <i class="pi pi-info-circle" style="color: #28c76f; margin-right:8px; font-size: 18px;"></i>
+                <span style="padding: 0px 0px 6px 3px;">Abilities last updated: {{ lastUpdated }}</span>
+            </div>
         </div>
-        <div class="layout-topbar-actions">
+        <div class="layout-topbar-actions items-center">
             <div class="layout-config-menu">
                 <button type="button" class="layout-topbar-action" @click="toggleDarkMode">
                     <i :class="['pi', { 'pi-sun': isDarkTheme, 'pi-moon': !isDarkTheme }]"></i>
@@ -127,21 +116,25 @@ const logout = () => {
             <div class="layout-topbar-menu hidden lg:block">
                 <div class="layout-topbar-menu-content">
                     <div style="padding: 6px 0px;">
-                        <p v-tooltip.bottom="'Veena Kumari'" style="font-weight: 600; font-size: 16px;">
+                        <!-- <p v-tooltip.bottom="'Veena Kumari'" style="font-weight: 600; font-size: 16px;">
                             Veena Kumari(431dc740<span>
                                 <Toast />
                                 <i class="pi pi-mobile" style="color: #00cfe8;padding: 0px 2px;" @click="show()">
                                 </i>
                             </span>)
+                        </p> -->
+                        <p v-tooltip.bottom="`${firstname} ${lastname}`" style="font-weight: 600; font-size: 16px;">
+                            {{ firstname }} {{ lastname }} ({{ uuid.substring(0, 8) }}<span>
+                                <Toast />
+                                <i class="pi pi-mobile" style="color: #00cfe8; padding: 0px 2px;" @click="show()"></i>
+                            </span>)
                         </p>
+                        <p style="font-weight: 600; font-size: 12px;">{{ company }}</p>
                     </div>
-                    <!-- <div type="button" class="profile-menu"> -->
-
                     <div class="profile" @click="toggleMenu2"
-                        style="background-color: rgba(235, 96, 63, .12);color: #eb603f ;padding: 10px; border-radius: 50px;">
+                        style="background-color: rgba(235, 96, 63, .12);color: #eb603f ;padding: 5px 12px; border-radius: 50px; margin: 5px 0px;">
                         <div class="img-box">
                             <i class="pi pi-user" style="font-size: 18px;"></i>
-                            <!-- <img src="https://i.postimg.cc/BvNYhMHS/user-img.jpg" alt="User Image"> -->
                         </div>
                     </div>
                     <div class="menu dark:bg-zinc-900 bg-white" :class="{ active: isMenuOpen }">
@@ -169,7 +162,6 @@ const logout = () => {
                             <SplitButton class="p-splitbutton-button" :model="items3" outlined="true" label=" "
                                 icon="pi pi-user" rounded="false" text="false" size="large" plain="false" dt="any" />
                         </div> -->
-
                     <!-- </div> -->
                 </div>
             </div>
@@ -199,20 +191,6 @@ const logout = () => {
     display: flex;
     align-items: center;
 }
-
-/* nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 80px;
-  background: #fff;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
-  padding: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-} */
 
 /* / menu toggle / */
 .menu-toggle {
@@ -258,14 +236,6 @@ const logout = () => {
     opacity: .6;
 }
 
-/* .profile .img-box {
-  position: relative;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  overflow: hidden;
-}   */
-
 .profile .img-box img {
     position: absolute;
     top: 0;
@@ -289,18 +259,6 @@ const logout = () => {
     transition: 300ms;
     z-index: 999;
 }
-
-/* .menu::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  right: 14px;
-  width: 20px;
-  height: 20px;
-  background: #fff;
-  transform: rotate(45deg);
-  z-index: -1;
-} */
 
 .menu.active {
     opacity: 1;

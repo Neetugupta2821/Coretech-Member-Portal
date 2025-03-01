@@ -27,6 +27,11 @@ const login = async () => {
             localStorage.setItem('access_token', response.data.access_token);
             localStorage.setItem('refresh_token', response.data.refresh_token);
             localStorage.setItem('child', JSON.stringify(response.data.child));
+            localStorage.setItem('uuid', response.data.child.uuid || '');
+            localStorage.setItem('email', response.data.child.email || '');
+            localStorage.setItem('firstname', response.data.child.firstname || '');
+            localStorage.setItem('lastname', response.data.child.lastname || '');
+            localStorage.setItem('company', response.data.child.company || '');
             localStorage.setItem('isAuthenticated', 'true');
             router.push('/');
         } else {
@@ -62,7 +67,7 @@ const login = async () => {
                     <div>
                         <label for="email1"
                             class="block text-muted-color dark:text-surface-0 font-medium mb-2">Email</label>
-                        <InputText id="email1" type="text" placeholder="Email address" class="w-full md:w-[20rem] mb-8"
+                        <InputText id="email1" type="text" placeholder="Email address" class="w-full md:w-[30rem] mb-8"
                             v-model="email" />
 
                         <label for="password1"
@@ -76,7 +81,7 @@ const login = async () => {
                                 <label for="rememberme1 text-muted-color">Remember me</label>
                             </div>
                             <span class="font-medium no-underline ml-2 text-right cursor-pointer text-orange-400">
-                                <router-link :to="'/auth/forgetpassword'">
+                                <router-link :to="'/forgetpassword'">
                                     Forgot
                                     password?
                                 </router-link>
@@ -88,11 +93,12 @@ const login = async () => {
             </div>
         </div>
     </div>
+    
 </template>
 
 <style scoped>
 .login_bg {
-    background-image: url(/coretech/src/assets/images/aurologic_background.jpg);
+    background-image: url("/src/assets/images/aurologic_background.jpg");
     object-fit: contain;
     background-position: bottom;
     background-size: cover;

@@ -5,11 +5,10 @@ import NotificationView from '@/components/dashboard/NotificationView.vue';
 import ServiceUnder from '@/components/dashboard/ServiceUnder.vue';
 </script>
 
-
 <template>
     <div class="mb-4">
         <div class="col-span-12 xl:col-span-12 mb-6">
-            <span class="text-xl">Dashboard</span>
+            <span class="text-2xl font-medium">Dashboard</span>
         </div>
         <div class="col-span-12 xl:col-span-12">
             <router-link :to="'/news'">

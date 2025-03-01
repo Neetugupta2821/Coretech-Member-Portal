@@ -1,7 +1,35 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import axios from 'axios';
+import { baseUrl } from '@/Api/BaseUrl';
+const accessToken = localStorage.getItem('access_token');
 
-const value = ref(null);
+const formData = ref({
+    company: "",
+    vatid: "",
+    firstname: "",
+    lastname: "",
+    street: "",
+    city: "",
+    zipcode: "",
+    country: "",
+})
+const fetchUserData = async () => {
+    try {
+        const response = await axios.get(`${baseUrl}my-account/`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        if (response.data.length > 0) {
+            formData.value = response.data[0];
+        }
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+};
+onMounted(fetchUserData)
+
 </script>
 
 <template>
@@ -10,49 +38,49 @@ const value = ref(null);
             <div class="col-span-12 lg:col-span-6 xl:col-span-6">
                 <div class="flex flex-col gap-1 ">
                     <label>Company</label>
-                    <InputText type="text" v-model="value" />
+                    <InputText type="text" v-model="formData.company" placeholder="Company" disabled />
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-6 xl:col-span-6">
                 <div class="flex flex-col gap-1 ">
                     <label>VAT ID</label>
-                    <InputText type="text" v-model="value" />
+                    <InputText type="text" v-model="formData.vatid" placeholder="VAT ID" disabled />
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-6 xl:col-span-6">
                 <div class="flex flex-col gap-1 ">
                     <label>Firstname</label>
-                    <InputText type="text" v-model="value" />
+                    <InputText type="text" v-model="formData.firstname" placeholder="Firstname" disabled />
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-6 xl:col-span-6">
                 <div class="flex flex-col gap-1 ">
                     <label>Lastname</label>
-                    <InputText type="text" v-model="value" />
+                    <InputText type="text" v-model="formData.lastname" placeholder="Lastname" disabled />
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-4 xl:col-span-4">
                 <div class="flex flex-col gap-1 ">
                     <label>Street</label>
-                    <InputText type="text" v-model="value" />
+                    <InputText type="text" v-model="formData.street" placeholder="Street" disabled />
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-4 xl:col-span-4">
                 <div class="flex flex-col gap-1 ">
                     <label>ZIP Code</label>
-                    <InputText type="text" v-model="value" />
+                    <InputText type="text" v-model="formData.zipcode" placeholder="ZIP Code" disabled />
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-4 xl:col-span-4">
                 <div class="flex flex-col gap-1 ">
                     <label>City / Location</label>
-                    <InputText type="text" v-model="value" />
+                    <InputText type="text" v-model="formData.city" placeholder="City / Location" disabled />
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-12 xl:col-span-12">
                 <div class="flex flex-col gap-1 ">
                     <label>Country</label>
-                    <Select name="city" :options="cities" optionLabel="name" placeholder="Select a City" fluid />
+                    <InputText type="text" v-model="formData.country" placeholder="country" disabled />
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-12 xl:col-span-12">

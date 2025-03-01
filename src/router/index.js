@@ -5,22 +5,22 @@ const router = createRouter({
     history: createWebHistory('/coretech'),
     routes: [
         {
-            path: '/auth/login',
+            path: '/login',
             name: 'login',
             component: () => import('@/views/pages/auth/Login.vue')
         },
         {
-            path: '/auth/forgetpassword',
+            path: '/forgetpassword',
             name: 'forget',
             component: () => import('@/views/pages/auth/Forget.vue')
         },
         {
-            path: '/auth/otpgenerate',
+            path: '/otpgenerate',
             name: 'otpgenerate',
             component: () => import('@/views/pages/auth/OtpGenerate.vue')
         },
         {
-            path: '/auth/resetpassword',
+            path: '/resetpassword',
             name: 'resetpassword',
             component: () => import('@/views/pages/auth/ResetPassword.vue')
         },
@@ -38,6 +38,11 @@ const router = createRouter({
                     path: '/news',
                     name: 'news',
                     component: () => import('@/views/NewsRoom.vue')
+                },
+                {
+                    path: '/news/:id',
+                    name: 'newsDetails',
+                    component: () => import('@/views/NewsRoomDetail.vue')
                 },
                 {
                     path: '/account',
@@ -160,7 +165,7 @@ router.beforeEach((to, from, next) => {
     const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
 
     if (to.meta.requiresAuth && !isAuthenticated) {
-        next('/auth/login');
+        next('/login');
     } else {
         next();
     }

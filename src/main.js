@@ -16,12 +16,12 @@ import '@/assets/tailwind.css';
 
 router.afterEach((to) => {
     console.log('-----', to);
-    const routeClass = to.name || to.path.replace(/\//g, '-'); // Use route name or path
-    document.body.className = ''; // Reset existing classes
-    document.body.classList.add(`${routeClass}`); // Add a custom class
+    const routeClass = to.name || to.path.replace(/\//g, '-');
+    document.body.className = '';
+    document.body.classList.add(`${routeClass}`);
     document.body.id = `${routeClass}`; // Add a custom ID (optional)
 });
-console.log('Date:20/2/2025, time:4:36pm');
+console.log('Date:01/3/2025, time:01:15pm');
 const app = createApp(App);
 
 app.use(router);

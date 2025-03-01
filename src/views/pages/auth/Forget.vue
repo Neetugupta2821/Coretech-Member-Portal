@@ -26,7 +26,12 @@ const sendOtp = async () => {
             localStorage.setItem('access_token', response.data.access_token || '');
             localStorage.setItem('refresh_token', response.data.refresh_token || '');
             localStorage.setItem('child', JSON.stringify(response.data.child || {}));
-            router.push('/auth/otpgenerate');
+            localStorage.setItem('uuid', response.data.child.uuid || '');
+            localStorage.setItem('email', response.data.child.email || '');
+            localStorage.setItem('firstname', response.data.child.firstname || '');
+            localStorage.setItem('lastname', response.data.child.lastname || '');
+            localStorage.setItem('company', response.data.child.company || '');
+            router.push('/otpgenerate');
         } else {
             console.error("OTP send failed:", response.data);
             toast.error(response.data.detail || "Failed to send OTP. Please try again.", { autoClose: 1000 });
@@ -71,7 +76,7 @@ const sendOtp = async () => {
                     </div>
                     <div class="flex justify-center items-center mt-8 cursor-pointer">
                         <p class="text-orange-400">
-                            <router-link to="/auth/login">Back to Login</router-link>
+                            <router-link to="/login">Back to Login</router-link>
                         </p>
                     </div>
                 </div>
@@ -82,7 +87,7 @@ const sendOtp = async () => {
 
 <style scoped>
 .login_bg {
-    background-image: url(/coretech/src/assets/images/aurologic_background.jpg);
+    background-image: url("/src/assets/images/aurologic_background.jpg");
     object-fit: contain;
     background-position: bottom;
     background-size: cover;
