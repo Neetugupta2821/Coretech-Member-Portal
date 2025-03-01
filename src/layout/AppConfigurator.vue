@@ -180,6 +180,7 @@ function onPresetChange() {
 function onMenuModeChange() {
     layoutConfig.menuMode = menuMode.value;
 }
+updateColors('primary', primaryColors.value[2]);
 </script>
 
 <template>
