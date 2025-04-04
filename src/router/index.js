@@ -2,7 +2,7 @@ import AppLayout from '@/layout/AppLayout.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
-    history: createWebHistory('/coretech'),
+    history: createWebHistory('/coretech/'),
     routes: [
         {
             path: '/login',
@@ -35,29 +35,46 @@ const router = createRouter({
                     meta: { requiresAuth: true }
                 },
                 {
-                    path: '/news',
-                    name: 'news',
+                    path: '/newsroom',
+                    name: 'newsroom',
                     component: () => import('@/views/NewsRoom.vue')
                 },
                 {
-                    path: '/news/:id',
+                    path: '/newsroom/:id',
                     name: 'newsDetails',
                     component: () => import('@/views/NewsRoomDetail.vue')
                 },
                 {
-                    path: '/account',
+                    path: '/my_account',
                     name: 'account',
                     component: () => import('@/views/uikit/MyAccount.vue')
                 },
                 {
-                    path: '/account/credit',
+                    path: '/my_account/account_billing',
                     name: 'credit',
                     component: () => import('@/views/uikit/AccountBilling.vue')
                 },
                 {
-                    path: '/service',
+                    path: '/service_overview',
                     name: 'service',
                     component: () => import('@/views/services/ServiceOverview.vue')
+                },
+                {
+                    path: '/service_overview/:id',
+                    name: 'overview_view',
+                    component: () => import('@/views/services/OverviewView.vue'),
+                    props: true
+                },
+                {
+                    path: '/request/:id',
+                    name: 'request',
+                    component: () => import('@/views/services/OverviewRequest.vue'),
+                    props: true
+                },
+                {
+                    path: '/cancel/:id',
+                    name: 'cancel',
+                    component: () => import('@/views/services/OverviewCancel.vue')
                 },
                 {
                     path: '/offer',
@@ -70,9 +87,14 @@ const router = createRouter({
                     component: () => import('@/views/services/DedicatedServer.vue')
                 },
                 {
-                    path: '/offer/addon/general',
-                    name: 'general',
+                    path: '/offer/addon',
+                    name: 'addon',
                     component: () => import('@/views/services/ServiceAddons.vue')
+                },
+                {
+                    path: '/offer/order',
+                    name: 'order',
+                    component: () => import('@/views/services/Order.vue')
                 },
                 // Ddos Protections Routes
                 {
@@ -86,10 +108,16 @@ const router = createRouter({
                     component: () => import('@/views/ddos/network/Flexrules.vue')
                 },
                 {
+                    path: '/network/flexrules/create',
+                    name: 'create',
+                    component: () => import('@/views/ddos/network/CreateFlexrule.vue')
+                },
+                {
                     path: '/network/flowrules',
                     name: 'flowrules',
                     component: () => import('@/views/ddos/network/Flowrules.vue')
                 },
+
                 {
                     path: '/network/thresholds',
                     name: 'thresholds',
@@ -131,6 +159,11 @@ const router = createRouter({
                     component: () => import('@/views/support/customer/MyTicket.vue')
                 },
                 {
+                    path: '/customer/tickets/view/:id',
+                    name: 'view',
+                    component: () => import('@/views/support/customer/MyTicketView.vue')
+                },
+                {
                     path: '/customer/newticket',
                     name: 'newticket',
                     component: () => import('@/views/support/customer/NewTicket.vue')
@@ -144,6 +177,16 @@ const router = createRouter({
                     path: '/info/about',
                     name: 'about',
                     component: () => import('@/views/support/information/About.vue')
+                },
+                {
+                    path: '/info/privacy',
+                    name: 'privacy',
+                    component: () => import('@/views/support/information/PrivacyPolicy.vue')
+                },
+                {
+                    path: '/info/term',
+                    name: 'term',
+                    component: () => import('@/views/support/information/TermCondition.vue')
                 }
             ]
         },

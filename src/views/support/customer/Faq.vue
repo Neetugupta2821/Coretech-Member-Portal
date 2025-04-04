@@ -30,6 +30,11 @@ onMounted(fetchFaqData);
 <template>
     <div class="mb-4">
         <div class="col-span-12 xl:col-span-12 mb-6">
+            <router-link :to="'/newsroom'">
+                <NotificationView />
+            </router-link>
+        </div>
+        <div class="col-span-12 xl:col-span-12 mb-6">
             <h2 class="text-2xl font-semibold mb-2">Let's answer some questions</h2>
             <p class="text-sm text-gray-400 mb-4">Choose a category to quickly find the help you need</p>
         </div>
@@ -41,24 +46,27 @@ onMounted(fetchFaqData);
         <div class="w-1/4">
             <div v-for="category in categories" :key="category.uuid" @click="selectCategory(category)"
                 class="cursor-pointer py-3 px-4 rounded-lg mb-2 transition-all duration-200"
-                :class="selectedCategory?.category_name === category.category_name ? 'bg-orange-500 text-white font-bold' : 'text-gray-400 font-bold'">
-                {{ category.category_name }}
+                :class="selectedCategory?.category_name === category.category_name ? 'bg-[#ee9537] text-white font-bold ' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 font-medium'">
+                <i class="pi pi-question-circle mr-1"></i>
+                <span>{{ category.category_name }}</span>
             </div>
         </div>
 
         <!-- Content Area -->
         <div class="w-3/4 pl-6">
             <div class="mx-6 rounded-lg">
-                <h2 class="text-2xl font-semibold"><span style="padding: 5px;"><i class="pi pi-question-circle"
+                <!-- <h2 class="text-2xl font-semibold"><span style="padding: 5px;"><i class="pi pi-question-circle"
                             style="color: orange; font-size: large"></i></span>{{
-                                selectedCategory?.category_name }}</h2>
+                                selectedCategory?.category_name }}</h2> -->
+                <h2 class="text-2xl font-semibold">{{
+                    selectedCategory?.category_name }}</h2>
                 <p class="text-gray-400 text-sm mb-4">{{ selectedCategory?.description }}</p>
 
                 <!-- Accordion -->
                 <Accordion v-model:activeIndex="activeIndex">
                     <AccordionTab v-for="(faq, index) in selectedCategory?.Question_Answer" :key="index"
                         :header="faq.question">
-                        <p class="m-0 text-gray-300">{{ faq.answer }}</p>
+                        <p class="m-0 text-gray-400">{{ faq.answer }}</p>
                     </AccordionTab>
                 </Accordion>
             </div>
@@ -75,14 +83,15 @@ onMounted(fetchFaqData);
 
     <div class="grid grid-cols-12 gap-10">
         <div class="col-span-12 lg:col-span-6 xl:col-span-6">
-            <div class="card mb-0">
+            <div class="card mb-0 shadow-lg rounded-lg">
                 <div class="flex justify-center text-center mb-2">
                     <div class="text-center mt-6">
                         <span
                             class="text-orange-400 dark:text-orange-400 font-medium text-xl bg-orange-100 dark:bg-orange-400/10 rounded-square p-3 mt-2">
                             <i class="pi pi-at text-orange-500 !text-xl"></i>
                         </span>
-                        <div class="text-orange-500 dark:text-orange-500 font-medium text-xl mt-4">info@coretechnologys.com
+                        <div class="text-orange-400 dark:text-orange-400 font-medium text-xl mt-4">
+                            info@coretechnologys.com
                         </div>
                         <span class="block text-surface-900 dark:text-surface-0 -color mb-2 text-md font-medium mt-2">We
                             are always happy to help!</span>
@@ -91,14 +100,15 @@ onMounted(fetchFaqData);
             </div>
         </div>
         <div class="col-span-12 lg:col-span-6 xl:col-span-6">
-            <div class="card mb-0">
+            <div class="card mb-0 shadow-lg rounded-lg">
                 <div class="flex justify-center text-center mb-2">
                     <div class="text-center mt-6">
                         <span
-                            class="text-orange-500 dark:text-orange-500 font-medium text-xl bg-orange-100 dark:bg-orange-400/10 rounded-square p-3 mt-2">
+                            class="text-orange-400 dark:text-orange-400 font-medium text-xl bg-orange-100 dark:bg-orange-400/10 rounded-square p-3 mt-2">
                             <i class="pi pi-envelope text-orange-500 !text-xl"></i>
                         </span>
-                        <div class="text-orange-500 dark:text-orange-500 font-medium text-xl mt-4 text-muted">Create a ticket
+                        <div class="text-orange-500 dark:text-orange-500 font-medium text-xl mt-4 text-muted">Create a
+                            ticket
                         </div>
                         <span
                             class="block text-surface-900 dark:text-surface-0 -color mb-2 text-md font-medium mt-2">Best
@@ -109,3 +119,9 @@ onMounted(fetchFaqData);
         </div>
     </div>
 </template>
+<style scoped>
+.p-accordionpanel:not(.p-disabled).p-accordionpanel-active>.p-accordionheader:hover {
+    /* background: var(--p-accordion-header-active-hover-background); */
+    color: var(--p-accordion-header-active-hover-color);
+}
+</style>

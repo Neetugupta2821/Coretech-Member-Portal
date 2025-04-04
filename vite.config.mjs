@@ -16,6 +16,15 @@ export default defineConfig({
             resolvers: [PrimeVueResolver()]
         })
     ],
+    server: {
+        proxy: {
+            '/invoicepdf': {
+                target: 'http://69.49.235.253:8002',
+                changeOrigin: true,
+                secure: false
+            }
+        }
+    },
     base: '/coretech/',
     resolve: {
         alias: {

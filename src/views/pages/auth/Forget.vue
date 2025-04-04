@@ -10,39 +10,56 @@ const email = ref('');
 const loading = ref(false);
 const router = useRouter();
 
-const sendOtp = async () => {
-    if (!email.value) {
-        toast.error("Please enter your email!", { autoClose: 1000 });
-        return;
-    }
+const errors = ref({
+    email: '',
+});
 
+// Validation regex
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const validateForm = () => {
+    errors.value = { email: '', };
+    let isValid = true;
+
+    // Validate Email
+    if (!email.value.trim()) {
+        errors.value.email = "Email is required.";
+        isValid = false;
+    } else if (!emailRegex.test(email.value.trim())) {
+        errors.value.email = "Enter a valid email address.";
+        isValid = false;
+    }
+    return isValid;
+}
+
+const sendOtp = async () => {
+    if (!validateForm()) return;
     try {
         loading.value = true;
-        const response = await axios.post(`${baseUrl}password_reset_api/`, { email: email.value });
+        const response = await axios.post(`${baseUrl}password_reset_api/`, { email: email.value.trim() });
+
         if (response.data.status === "True") {
             console.log('Sent OTP', response.data);
             toast.success(response.data.message || "OTP sent successfully!", { autoClose: 1000 });
-            localStorage.setItem('email', response.data.email)
+            localStorage.setItem('email', response.data.email);
             localStorage.setItem('access_token', response.data.access_token || '');
             localStorage.setItem('refresh_token', response.data.refresh_token || '');
-            localStorage.setItem('child', JSON.stringify(response.data.child || {}));
-            localStorage.setItem('uuid', response.data.child.uuid || '');
-            localStorage.setItem('email', response.data.child.email || '');
-            localStorage.setItem('firstname', response.data.child.firstname || '');
-            localStorage.setItem('lastname', response.data.child.lastname || '');
-            localStorage.setItem('company', response.data.child.company || '');
+            // Redirect to OTP page
             router.push('/otpgenerate');
         } else {
             console.error("OTP send failed:", response.data);
             toast.error(response.data.detail || "Failed to send OTP. Please try again.", { autoClose: 1000 });
+            errors.value.email = "Invalid email";
         }
     } catch (error) {
         console.error("OTP send error:", error.response ? error.response.data : error.message);
         toast.error(error.response?.data?.detail || "Something went wrong!", { autoClose: 1000 });
+        errors.value.email = "Invalid email";
     } finally {
         loading.value = false;
     }
 };
+
 </script>
 
 <template>
@@ -50,8 +67,8 @@ const sendOtp = async () => {
         class="login_bg bg-surface-50 dark:bg-surface-950 flex items-center justify-end overflow-hidden min-h-screen min-w-[100vw]">
         <div class="flex items-center justify-center">
             <div style="border-radius: 56px;">
-                <div class="w-full min-h-screen bg-surface-0 dark:bg-surface-900 py-20 sm:px-20 overflow-hidden items-center"
-                    style="background-color: #0F172A;">
+                <div class="min-w-[40vw] min-h-screen bg-surface-0 dark:bg-surface-900 py-20 sm:px-20 overflow-hidden items-center"
+                    style="background-color: #171D34;">
                     <div class="text-start mb-8">
                         <div class="mb-8">
                             <img src="../../../assets/images/logo.png" alt="coretechlogo" class="w-36">
@@ -61,15 +78,16 @@ const sendOtp = async () => {
                         <span class="text-muted-color font-medium">Enter your email and we'll send you instructions to
                             reset your password</span>
                     </div>
-                    <div>
+                    <div class="mb-4">
                         <label for="email1"
                             class="block text-muted-color dark:text-surface-0 font-medium mb-2">Email</label>
-                        <InputText id="email1" type="email" placeholder="Email address" class="w-full md:w-[30rem] mb-8"
+                        <InputText id="email1" type="email" placeholder="Email address" class="w-full md:w-[30rem] mb-2"
                             v-model="email" />
+                        <p class="text-red-500 text-sm mb-4" v-if="errors.email">{{ errors.email }}</p>
                     </div>
                     <div>
-                        <Button :disabled="loading" label="Send OTP" class="w-full md:w-[30rem]" @click="sendOtp"
-                            severity="warn">
+                        <Button :disabled="loading" label="Send OTP"
+                            class=" !bg-orange-400 !border-none w-full md:w-[30rem]" @click="sendOtp">
                             <span v-if="loading">Sending...</span>
                             <span v-else>Send OTP</span>
                         </Button>

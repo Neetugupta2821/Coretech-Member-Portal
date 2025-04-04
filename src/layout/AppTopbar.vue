@@ -1,20 +1,19 @@
 <script setup>
 import { useLayout } from '@/layout/composables/layout';
 import AppConfigurator from './AppConfigurator.vue';
-import { useRouter } from 'vue-router';
-const router = useRouter()
-// const { toggleMenu, toggleDarkMode, isDarkTheme, layoutConfig, layoutState, isSidebarActive } = useLayout();
+import { useRouter, useRoute } from 'vue-router';
+const router = useRouter();
+const route = useRoute();
 const { toggleMenu, toggleDarkMode, isDarkTheme, } = useLayout();
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch, onUnmounted } from "vue";
 
 const accesstoken = ref(localStorage.getItem('access_token') || '');
 console.log(accesstoken);
-// const refreshtoken = ref(localStorage.getItem('refresh_token') || '');
 const uuid = ref(localStorage.getItem('uuid') || '');
-// console.log(uuid)
 const firstname = ref(localStorage.getItem('firstname') || '');
 const lastname = ref(localStorage.getItem('lastname') || '');
 const company = ref(localStorage.getItem('company') || '');
+
 const menu = ref();
 const items = ref([
     {
@@ -52,20 +51,77 @@ const save = () => {
     toast.add({ severity: 'success', summary: 'Success', detail: 'Data Saved', life: 3000 });
 };
 
-const show = () => {
-    toast.add({ severity: 'success', summary: 'Text Copied!', detail: 'Message Content', life: 1000 });
+const show = async (uuid) => {
+    if (navigator.clipboard?.writeText) {
+        try {
+            await navigator.clipboard.writeText(uuid);
+            toast.add({ severity: 'success', summary: 'Text Copied!', detail: uuid, life: 1000 });
+            return;
+        } catch (error) {
+            console.error("Failed to copy using Clipboard API:", error);
+        }
+    }
+
+    // Fallback for HTTP (older browsers)
+    const textarea = document.createElement("textarea");
+    textarea.value = uuid;
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+        document.execCommand("copy");
+        toast.add({ severity: 'success', summary: 'Text Copied!', detail: uuid, life: 1000 });
+    } catch (error) {
+        console.error("Fallback copy failed:", error);
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Failed to copy UUID', life: 2000 });
+    }
+    document.body.removeChild(textarea);
 };
 
+
 const isMenuOpen = ref(false);
+const profileMenu = ref(null);
 
 const toggleMenu2 = () => {
     isMenuOpen.value = !isMenuOpen.value;
+    console.log("Menu toggled:", isMenuOpen.value);
 };
+
+// Function to close menu when clicking outside
+const handleClickOutside = (event) => {
+    if (profileMenu.value && !profileMenu.value.contains(event.target)) {
+        isMenuOpen.value = false;
+    }
+};
+
+onMounted(() => {
+    document.addEventListener("click", handleClickOutside);
+});
+
+onUnmounted(() => {
+    document.removeEventListener("click", handleClickOutside);
+});
+
+// Close menu on route change
+watch(() => route.path, () => {
+    isMenuOpen.value = false;
+});
 
 const logout = () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('child');
+    localStorage.removeItem('uuid');
+    localStorage.removeItem('email');
+    localStorage.removeItem('firstname');
+    localStorage.removeItem('lastname');
+    localStorage.removeItem('company');
+    localStorage.removeItem('street');
+    localStorage.removeItem('phone');
+    localStorage.removeItem('zipcode');
+    localStorage.removeItem('city');
+    localStorage.removeItem('country');
+    localStorage.removeItem('vatid');
+    localStorage.removeItem('city');
     localStorage.removeItem('isAuthenticated');
     router.push('/login');
 };
@@ -84,10 +140,10 @@ const logout = () => {
                 <font-awesome-icon :icon="['far', 'circle-dot']" />
             </button>
         </div>
-        <div>
-            <div>
-                <i class="pi pi-info-circle" style="color: #28c76f; margin-right:8px; font-size: 18px;"></i>
-                <span style="padding: 0px 0px 6px 3px;">Abilities last updated: {{ lastUpdated }}</span>
+        <div class="flex justify-center">
+            <div class="items-center text-center">
+                <i class="pi pi-info-circle mb-0 text-green-400 text-xxl mr-3 pt-0"></i>
+                <span class="mb-5 text-lg">Abilities last updated: {{ lastUpdated }}</span>
             </div>
         </div>
         <div class="layout-topbar-actions items-center">
@@ -95,7 +151,7 @@ const logout = () => {
                 <button type="button" class="layout-topbar-action" @click="toggleDarkMode">
                     <i :class="['pi', { 'pi-sun': isDarkTheme, 'pi-moon': !isDarkTheme }]"></i>
                 </button>
-                <div :style="{ color: textColor, fontSize: 17 + 'px', padding: 5 + 'px', fontWeight: 600 }">
+                <div :style="{ fontSize: 17 + 'px', padding: 5 + 'px', fontWeight: 600 }">
                     <Button type="button" label="€0.00" @click="toggle" aria-haspopup="true" unstyled="false"
                         size="large" aria-controls="overlay_tmenu" />
                     <TieredMenu ref="menu" id="overlay_tmenu" :model="items" popup />
@@ -126,21 +182,22 @@ const logout = () => {
                         <p v-tooltip.bottom="`${firstname} ${lastname}`" style="font-weight: 600; font-size: 16px;">
                             {{ firstname }} {{ lastname }} ({{ uuid.substring(0, 8) }}<span>
                                 <Toast />
-                                <i class="pi pi-mobile" style="color: #00cfe8; padding: 0px 2px;" @click="show()"></i>
+                                <i class="pi pi-clipboard cursor-pointer text-cyan-500" style=" padding: 0px 2px;"
+                                    @click="show(uuid)"></i>
                             </span>)
                         </p>
                         <p style="font-weight: 600; font-size: 12px;">{{ company }}</p>
                     </div>
-                    <div class="profile" @click="toggleMenu2"
-                        style="background-color: rgba(235, 96, 63, .12);color: #eb603f ;padding: 5px 12px; border-radius: 50px; margin: 5px 0px;">
+                    <div class="profile" @click="toggleMenu2" ref="profileMenu"
+                        style="background-color: rgba(235, 96, 63, .12); color: #eb603f; padding: 5px 12px; border-radius: 50px; margin: 5px 0px;">
                         <div class="img-box">
                             <i class="pi pi-user" style="font-size: 18px;"></i>
                         </div>
                     </div>
-                    <div class="menu dark:bg-zinc-900 bg-white" :class="{ active: isMenuOpen }">
+                    <div class="card menu" :class="{ active: isMenuOpen }">
                         <ul>
                             <li>
-                                <router-link :to="'/account'">
+                                <router-link :to="'/my_account'">
                                     <p class="text-black dark:text-white items-center"><i
                                             class="ph-bold ph-user"></i>&nbsp;Account Settings</p>
                                 </router-link>
@@ -151,8 +208,8 @@ const logout = () => {
                                             class="ph-bold ph-envelope-simple"></i>&nbsp;Frequently Asked</p>
                                 </router-link>
                             </li>
-                            <Divider />
-                            <li @click="logout">
+                            <hr class="my-2 border-gray-300 dark:border-gray-700">
+                            <li @click="logout" class="cursor-pointer">
                                 <p class="text-black dark:text-white"><i class="ph-bold ph-gear-six"></i>&nbsp;Log Out
                                 </p>
                             </li>
@@ -248,7 +305,7 @@ const logout = () => {
 /* / menu / */
 .menu {
     position: absolute;
-    top: calc(100% + 11px);
+    top: calc(100% + 12px);
     right: 15px;
     width: 170px;
     min-height: 100px;
@@ -287,12 +344,16 @@ const logout = () => {
     text-decoration: none;
     display: flex;
     align-items: center;
-    padding: 8px 20px;
+    padding: 6px 10px;
     gap: 6px;
 }
 
 .menu ul li p i {
     font-size: 1.2em;
     color: orange;
+}
+
+.card {
+    padding: 0rem !important;
 }
 </style>

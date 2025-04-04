@@ -11,7 +11,7 @@ import ServiceUnder from '@/components/dashboard/ServiceUnder.vue';
             <span class="text-2xl font-medium">Dashboard</span>
         </div>
         <div class="col-span-12 xl:col-span-12">
-            <router-link :to="'/news'">
+            <router-link :to="'/newsroom'">
                 <NotificationView />
             </router-link>
         </div>
@@ -22,7 +22,7 @@ import ServiceUnder from '@/components/dashboard/ServiceUnder.vue';
             <ServiceUnder />
         </div>
         <StatsWidget />
-        <div class="col-span-12 xl:col-span-12">
+        <div class="col-span-12 xl:col-span-12 shadow-lg rounded-lg">
             <ScheduledMaintenance />
         </div>
     </div>

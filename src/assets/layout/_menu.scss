@@ -17,7 +17,6 @@
     padding: 0.5rem 1.5rem;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
-
     &::-webkit-scrollbar {
         width: 5px;
     }
@@ -104,8 +103,9 @@
             &.active-route {
                 font-weight: 700;
                 color: #fff;
-                background: linear-gradient(118deg, #c96304, rgba(241, 149, 43, 0.7));
-                box-shadow: 0 0 10px 1px rgba(221, 137, 59, 0.7);
+                background: #ee9537;
+                // background: linear-gradient(118deg, #d88730, rgba(255, 142, 13, 0.7));
+                box-shadow: 0 0 10px 1px rgba(231, 152, 79, 0.7);
                 border-radius: 4px;
             }
             &:hover {

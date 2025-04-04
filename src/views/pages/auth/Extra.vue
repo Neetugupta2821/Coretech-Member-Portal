@@ -15,10 +15,8 @@ const errors = ref({
     password: ''
 });
 
-// Validation regex
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
 onMounted(() => {
     if (localStorage.getItem('rememberMe') === 'true') {
         email.value = localStorage.getItem('savedEmail') || '';
@@ -28,6 +26,7 @@ onMounted(() => {
 });
 
 const validateForm = () => {
+    // Reset errors
     errors.value = { email: '', password: '' };
 
     let isValid = true;
@@ -45,17 +44,15 @@ const validateForm = () => {
     if (!password.value.trim()) {
         errors.value.password = "Password is required.";
         isValid = false;
-    } else if (!passwordRegex.test(password.value)) {
-        errors.value.password = "Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character";
-        return;
+    } else if (!passwordRegex.test(password.value.trim())) {
+        errors.value.password = "Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character"
+        isValid = false;
     }
-
     return isValid;
 };
 
 const login = async () => {
     if (!validateForm()) return;
-
     try {
         const credentials = {
             email: email.value.trim(),
@@ -65,6 +62,7 @@ const login = async () => {
         const response = await axios.post(`${baseUrl}child/login/`, credentials);
         if (response.data.success) {
             console.log('Login successful:', response.data);
+
             // Store token in localStorage
             localStorage.setItem('access_token', response.data.access_token);
             localStorage.setItem('refresh_token', response.data.refresh_token);
@@ -92,13 +90,14 @@ const login = async () => {
                 localStorage.removeItem('savedEmail');
                 localStorage.removeItem('savedPassword');
             }
+
             router.push('/');
         } else {
             errors.value.password = "Invalid email or password.";
         }
     } catch (error) {
         console.error('Login error:', error.response ? error.response.data : error.message);
-        errors.value.password = "Invalid email or password.";
+        errors.value.password = "Login failed. Please try again.";
     }
 };
 </script>
@@ -106,10 +105,10 @@ const login = async () => {
 <template>
     <div
         class="login_bg bg-surface-50 dark:bg-surface-950 flex items-center justify-end overflow-hidden min-h-screen min-w-[100vw]">
-        <div class="flex items-center justify-center">
+        <div class="flex flex-col items-center justify-center">
             <div style="border-radius: 56px;">
                 <div class="w-full min-h-screen bg-surface-0 dark:bg-surface-900 py-20 sm:px-20 overflow-hidden"
-                    style="background-color: #171D34;">
+                    style="background-color: #0F172A;">
                     <div class="text-start mb-8">
                         <div class="mb-8">
                             <img src="../../../assets/images/logo.png" alt="coretechlogo" class="w-40">
@@ -117,20 +116,18 @@ const login = async () => {
                         <div class="text-surface-0 text-3xl font-medium mb-4">Welcome to Coretech</div>
                         <span class="text-muted-color font-medium">Please sign in to manage your services</span>
                     </div>
-                    <div class="mb-4">
+                    <div>
                         <label for="email1"
                             class="block text-muted-color dark:text-surface-0 font-medium mb-2">Email</label>
                         <InputText name="email" id="email1" type="text" placeholder="Email address"
                             class="w-full md:w-[30rem] mb-2" v-model="email" />
-                        <p class="text-red-500 text-sm mb-4 w-full md:w-[30rem]" v-if="errors.email">{{ errors.email }}
-                        </p>
+                        <p class="text-red-500 text-sm mb-4" v-if="errors.email">{{ errors.email }}</p>
+
                         <label for="password1"
                             class="block text-muted-color dark:text-surface-0 font-medium mb-2">Password</label>
                         <Password id="password1" v-model="password" placeholder="Password" :toggleMask="true"
                             class="mb-2 w-full md:w-[30rem]" fluid :feedback="false"></Password>
-                        <p class="text-red-500 text-sm w-full md:w-[30rem]" v-if="errors.password">
-                            {{ errors.password }}
-                        </p>
+                        <p class="text-red-500 text-sm mb-4" v-if="errors.password">{{ errors.password }}</p>
 
                         <div class="flex items-center justify-between mt-2 mb-8 gap-8">
                             <div class="flex items-center">
@@ -143,8 +140,7 @@ const login = async () => {
                                 <router-link :to="'/forgetpassword'">Forgot password?</router-link>
                             </span>
                         </div>
-                        <Button @click="login" label="Sign In"
-                            class="w-full md:w-[30rem] !bg-orange-400 !border-none"></Button>
+                        <Button @click="login" label="Sign In" class="w-full !bg-orange-400 !border-none"></Button>
                     </div>
                 </div>
             </div>

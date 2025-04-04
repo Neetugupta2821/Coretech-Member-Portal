@@ -35,11 +35,23 @@ const Otpverify = async () => {
             toast.success("OTP Verified Successfully!", { autoClose: 2000 });
             localStorage.setItem('access_token', response.data.access_token || '');
             localStorage.setItem('refresh_token', response.data.refresh_token || '');
-            localStorage.setItem('uuid', response.data.child.uuid || '');
-            localStorage.setItem('email', response.data.child.email || '');
-            localStorage.setItem('firstname', response.data.child.firstname || '');
-            localStorage.setItem('lastname', response.data.child.lastname || '');
-            localStorage.setItem('company', response.data.child.company || '');
+            if (response.data.child) {
+                localStorage.setItem('access_token', response.data.access_token);
+                localStorage.setItem('refresh_token', response.data.refresh_token);
+                localStorage.setItem('child', JSON.stringify(response.data.child));
+                localStorage.setItem('uuid', response.data.child.uuid || '');
+                localStorage.setItem('email', response.data.child.email || '');
+                localStorage.setItem('firstname', response.data.child.firstname || '');
+                localStorage.setItem('lastname', response.data.child.lastname || '');
+                localStorage.setItem('company', response.data.child.company || '');
+                localStorage.setItem('street', response.data.child.street || '');
+                localStorage.setItem('phone', response.data.child.phone || '');
+                localStorage.setItem('zipcode', response.data.child.zipcode || '');
+                localStorage.setItem('city', response.data.child.city || '');
+                localStorage.setItem('country', response.data.child.country || '');
+                localStorage.setItem('vatid', response.data.child.vatid || '');
+                localStorage.setItem('isAuthenticated', 'true');
+            }
             localStorage.setItem('isAuthenticated', 'true');
             router.push('/resetpassword');
         } else {
@@ -60,7 +72,7 @@ const Otpverify = async () => {
         <div class="flex">
             <div style="border-radius: 56px;">
                 <div class="w-full min-h-screen bg-surface-0 dark:bg-surface-900 py-20 sm:px-20"
-                    style="background-color: #0F172A;">
+                    style="background-color: #171D34;">
                     <div class="text-start mb-8">
                         <div class="mb-8">
                             <img src="../../../assets/images/logo.png" alt="coretechlogo" class="w-36">
@@ -81,8 +93,8 @@ const Otpverify = async () => {
                         </div>
                     </div>
                     <div class="flex mt-6 items-center justify-start">
-                        <Button :disabled="loading" label="Verify OTP" class="w-full md:w-[18rem]" @click="Otpverify"
-                            severity="warn">
+                        <Button :disabled="loading" label="Verify OTP" class=" !bg-orange-400 !border-none w-full md:w-[18rem]" @click="Otpverify"
+                            >
                             <span v-if="loading">Verifying...</span>
                             <span v-else>Verify OTP</span>
                         </Button>

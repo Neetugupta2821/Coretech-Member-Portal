@@ -19,9 +19,9 @@ router.afterEach((to) => {
     const routeClass = to.name || to.path.replace(/\//g, '-');
     document.body.className = '';
     document.body.classList.add(`${routeClass}`);
-    document.body.id = `${routeClass}`; // Add a custom ID (optional)
+    document.body.id = `${routeClass}`;
 });
-console.log('Date:01/3/2025, time:01:15pm');
+console.log('Date:02/4/2025, time:05:21pm');
 const app = createApp(App);
 
 app.use(router);
@@ -40,8 +40,7 @@ app.use(PrimeVue, {
     theme: {
         preset: Aura,
         options: {
-            darkModeSelector: '.app-dark',
-
+            darkModeSelector: '.app-dark'
         }
     }
 });

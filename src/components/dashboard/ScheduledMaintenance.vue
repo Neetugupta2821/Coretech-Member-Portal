@@ -4,6 +4,7 @@ import axios from 'axios';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { baseUrl } from '@/Api/BaseUrl';
+
 const products = ref([]);
 const visible = ref(false);
 const selectedItem = ref(null);
@@ -11,13 +12,21 @@ const selectedItem = ref(null);
 const fetchMaintenanceData = async () => {
     try {
         const response = await axios.get(`${baseUrl}Schedule/Mantance/`);
-        products.value = response.data;
+        const currentDate = new Date();
+
+        // Filter out completed and expired schedules
+        products.value = response.data.filter(item =>
+            item.status !== "COMPLETE" &&
+            (!item.Scheduled_until || new Date(item.Scheduled_until) > currentDate)
+        );
     } catch (error) {
         console.error("Error fetching data:", error);
         toast.error("Failed to fetch maintenance data");
     }
 };
+
 onMounted(fetchMaintenanceData);
+
 const formatDate = (dateString) => {
     if (!dateString) return '';
     return new Date(dateString).toISOString();
@@ -35,6 +44,7 @@ const openDialog = (item) => {
     selectedItem.value = item;
     visible.value = true;
 };
+
 </script>
 
 <template>
@@ -45,16 +55,6 @@ const openDialog = (item) => {
                     <span class="text-2xl font-bold">Scheduled Maintenance</span>
                 </div>
             </template>
-            <!-- <Column header="DETAIL" style="min-width: 12rem">
-                <template #body="slotProps" label="Top" @click="openPosition('top')">
-                    {{ (slotProps.data.details) }}
-                    &nbsp;<span @click="openLink(slotProps.data.urls)">
-                        <i class="pi pi-external-link text-orange-400" style="font-size: 1rem "></i>
-                    </span>
-                </template>
-            </Column> -->
-
-            <!-- DETAILS COLUMN -->
             <Column header="DETAIL" style="min-width: 12rem">
                 <template #body="slotProps">
                     <span class="cursor-pointer" @click="openDialog(slotProps.data)">
@@ -68,7 +68,7 @@ const openDialog = (item) => {
             </Column>
             <Column header="STATUS" style="min-width: 12rem">
                 <template #body="slotProps">
-                    {{ (slotProps.data.status) }}
+                    {{ slotProps.data.status }}
                 </template>
             </Column>
             <Column header="SCHEDULED FOR" style="min-width: 12rem">
@@ -89,8 +89,8 @@ const openDialog = (item) => {
             :draggable="false" position="top">
             <div v-if="selectedItem">
                 <p class="text-muted-color font-bold text-xl mb-4">{{ selectedItem.heading }}</p>
-                <P class="text-muted-color"><strong>Update</strong> posted at {{ selectedItem.update }} with status {{
-                    selectedItem.status }}</P>
+                <p class="text-muted-color"><strong>Update</strong> posted at {{ selectedItem.update }} with status {{
+                    selectedItem.status }}</p>
                 <p class="text-muted-color">{{ selectedItem.details }}</p>
                 <br />
                 <p class="text-muted-color">{{ selectedItem.title }}</p>

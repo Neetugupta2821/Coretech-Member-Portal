@@ -10,6 +10,14 @@ const email = ref(localStorage.getItem('email') || '');
 const new_password = ref('');
 const confirm_password = ref('');
 
+// Error messages
+// const errors = ref({
+//     new_password: '',
+//     confirm_password: ''
+// });
+
+// Validation regex
+// const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 const router = useRouter()
 const Resetpassword = async () => {
     if (!new_password.value) {
@@ -38,15 +46,26 @@ const Resetpassword = async () => {
             toast.success("User Reset Password Successful!", {
                 autoClose: 2000,
             });
-            // Store token in localStorage
             localStorage.setItem('access_token', response.data.access_token);
             localStorage.setItem('refresh_token', response.data.refresh_token);
-            localStorage.setItem('child', JSON.stringify(response.data.child));
-            localStorage.setItem('uuid', response.data.child.uuid || '');
-            localStorage.setItem('email', response.data.child.email || '');
-            localStorage.setItem('firstname', response.data.child.firstname || '');
-            localStorage.setItem('lastname', response.data.child.lastname || '');
-            localStorage.setItem('company', response.data.child.company || '');
+            // Check if child exists before accessing properties
+            if (response.data.child) {
+                localStorage.setItem('access_token', response.data.access_token);
+                localStorage.setItem('refresh_token', response.data.refresh_token);
+                localStorage.setItem('child', JSON.stringify(response.data.child));
+                localStorage.setItem('uuid', response.data.child.uuid || '');
+                localStorage.setItem('email', response.data.child.email || '');
+                localStorage.setItem('firstname', response.data.child.firstname || '');
+                localStorage.setItem('lastname', response.data.child.lastname || '');
+                localStorage.setItem('company', response.data.child.company || '');
+                localStorage.setItem('street', response.data.child.street || '');
+                localStorage.setItem('phone', response.data.child.phone || '');
+                localStorage.setItem('zipcode', response.data.child.zipcode || '');
+                localStorage.setItem('city', response.data.child.city || '');
+                localStorage.setItem('country', response.data.child.country || '');
+                localStorage.setItem('vatid', response.data.child.vatid || '');
+                localStorage.setItem('isAuthenticated', 'true');
+            }
             localStorage.setItem('isAuthenticated', 'true');
             router.push('/login');
         } else {
@@ -70,10 +89,10 @@ const Resetpassword = async () => {
         <div class="flex flex-col items-center justify-center">
             <div style="border-radius: 56px;">
                 <div class="w-full min-h-screen bg-surface-0 dark:bg-surface-900 py-20 sm:px-20 overflow-hidden"
-                    style="background-color: #0F172A;">
+                    style="background-color: #171D34;">
                     <div class="text-start mb-8">
                         <div class="mb-8">
-                            <img src="../../../assets/images/logo.png" alt="coretechlogo" class="w-36">
+                            <img src="../../../assets/images/logo.png" alt="coretechlogo" class="w-40">
                         </div>
                         <div class="text-surface-0 dark:text-surface-900 text-3xl font-medium mb-4">Welcome to coretech
                         </div>
@@ -94,7 +113,8 @@ const Resetpassword = async () => {
                             class="block text-muted-color dark:text-surface-0 font-medium mb-2">Confirm Password</label>
                         <Password id="confirm_password" v-model="confirm_password" placeholder="confirm Password"
                             :toggleMask="true" class="mb-4" fluid :feedback="false"></Password>
-                        <Button label="Sign In" class="w-full " @click="Resetpassword" severity="warn"></Button>
+                        <Button label="Sign In" class=" !bg-orange-400 !border-none w-full "
+                            @click="Resetpassword"></Button>
                     </div>
                 </div>
             </div>

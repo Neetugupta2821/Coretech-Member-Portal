@@ -31,9 +31,7 @@ const itemKey = ref(null);
 
 onBeforeMount(() => {
     itemKey.value = props.parentItemKey ? props.parentItemKey + '-' + props.index : String(props.index);
-
     const activeItem = layoutState.activeMenuItem;
-
     isActiveMenu.value = activeItem === itemKey.value || activeItem ? activeItem.startsWith(itemKey.value + '-') : false;
 });
 

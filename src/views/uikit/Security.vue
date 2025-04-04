@@ -1,29 +1,56 @@
 <script setup>
 import { ref } from 'vue';
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
 import { baseUrl } from '@/Api/BaseUrl';
 import axios from 'axios';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 const visible = ref(false);
 const old_password = ref('');
 const new_password = ref('');
 const confirm_new_password = ref('');
 const assessToken = localStorage.getItem('access_token');
 
+// Reactive object to store validation errors
+const errors = ref({
+    old_password: '',
+    new_password: '',
+    confirm_new_password: '',
+    general: ''
+});
+
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
 const Resetpassword = async () => {
+    errors.value = { old_password: '', new_password: '', confirm_new_password: '', general: '' };
+    old_password.value = old_password.value.trim();
+    new_password.value = new_password.value.trim();
+    confirm_new_password.value = confirm_new_password.value.trim();
+
+    // Validation Checks
     if (!old_password.value) {
-        toast.error("Please enter oldpassword", { autoClose: 1000 });
-        return;
+        errors.value.old_password = "Please enter your old password";
     }
     if (!new_password.value) {
-        toast.error("Please enter new password", { autoClose: 1000 });
-        return;
+        errors.value.new_password = "Please enter a new password";
     }
     if (!confirm_new_password.value) {
-        toast.error("Please enter confirm password", { autoClose: 1000 });
+        errors.value.confirm_new_password = "Please confirm your new password";
+    }
+    if (errors.value.old_password || errors.value.new_password || errors.value.confirm_new_password) {
         return;
     }
-
+    if (!passwordRegex.test(new_password.value)) {
+        errors.value.new_password = "Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character";
+        return;
+    }
+    if (old_password.value === new_password.value) {
+        errors.value.new_password = "New password cannot be the same as the old password";
+        return;
+    }
+    if (new_password.value !== confirm_new_password.value) {
+        errors.value.confirm_new_password = "New password and confirm password do not match";
+        return;
+    }
     try {
         const credentials = {
             old_password: old_password.value,
@@ -48,57 +75,54 @@ const Resetpassword = async () => {
             confirm_new_password.value = "";
             visible.value = false;
         } else {
-            console.error('Reset Password Failed!', response);
-            toast.error("User Reset Password Failed!", {
-                autoClose: 2000,
-            })
+            errors.value.general = "Password reset failed. Please try again.";
         }
     } catch (error) {
-        console.error('Reset Password error:', error.response ? error.response.data : error.message);
-        if (error.response && error.response.data && error.response.data.message) {
-            toast.error(error.response.data.message, { autoClose: 1000 });
-        } else {
-            toast.error("User Reset Password Failed!", { autoClose: 1000 });
-        }
+        console.error('Password reset error:', error.response ? error.response.data : error.message);
+        errors.value.general = error.response?.data?.message || "Something went wrong. Please try again.";
     }
-}
+};
 </script>
 
 <template>
     <div class="mb-4 text-xl mt-4">Password</div>
-    <Button class="bg-orange-400/10" type="submit" label="Reset Pasword" @click="visible = true" />
+    <Button class="bg-orange-400/10" type="submit" label="Reset Password" @click="visible = true" />
+
     <div class="card flex justify-center">
         <Dialog v-model:visible="visible" modal header="Reset Password" :style="{ width: '25rem' }">
-            <div class="card flex flex-wrap justify-start items-end">
-                <label for="oldpassword">Old Password</label>
-                <Password id="old_password" v-model="old_password" :toggleMask="true" fluid :feedback="false"
-                    class="w-full mb-2" />
-                <label for="newpassword">New Password</label>
-                <Password id="new_password" v-model="new_password" :toggleMask="true" fluid :feedback="false"
-                    class="mb-2 w-full" />
-                <label for="confirmpassword">Confirm Password</label>
-                <Password id="confirm_new_password" v-model="confirm_new_password" :toggleMask="true" fluid
-                    :feedback="false" class="w-full mb-2" />
+            <div class="card flex flex-col justify-start">
+                <div class="mb-4">
+                    <label for="old_password">Old Password</label>
+                    <Password id="old_password" v-model="old_password" :toggleMask="true" fluid :feedback="false"
+                        class="w-full mb-1" />
+                    <p v-if="errors.old_password" class="text-red-500 text-sm">{{ errors.old_password }}</p>
+                </div>
+                <div class="mb-4">
+                    <label for="new_password">New Password</label>
+                    <Password id="new_password" v-model="new_password" :toggleMask="true" fluid :feedback="false"
+                        class="w-full mb-1" />
+                    <p v-if="errors.new_password" class="text-red-500 text-sm">{{ errors.new_password }}</p>
+                </div>
+                <div class="mb-4">
+                    <label for="confirm_new_password">Confirm Password</label>
+                    <Password id="confirm_new_password" v-model="confirm_new_password" :toggleMask="true" fluid
+                        :feedback="false" class="w-full mb-1" />
+                    <p v-if="errors.confirm_new_password" class="text-red-500 text-sm">{{ errors.confirm_new_password }}
+                    </p>
+                </div>
+                <!-- General Error -->
+                <p v-if="errors.general" class="text-red-500 text-sm mb-4">{{ errors.general }}</p>
             </div>
             <template #footer>
-                <Button label="Cancel" text severity="secondary" @click="visible = false" autofocus />
-                <Button label="Save" outlined severity="secondary" @click="Resetpassword" autofocus />
+                <Button label="Cancel" severity="danger" outlined @click="visible = false" autofocus />
+                <Button label="Save" severity="warn" outlined @click="Resetpassword" autofocus />
             </template>
         </Dialog>
     </div>
 </template>
+
 <style scoped>
-.notify {
-    padding: 10px;
-    border-radius: 5px;
-    /* box-shadow: 3px 4px 5px rgba(245, 131, 78, 0.24); */
-}
-
-.pi-eye {
-    transform: scale(1.6);
-    margin-right: 1rem;
-}
-
+.pi-eye,
 .pi-eye-slash {
     transform: scale(1.6);
     margin-right: 1rem;

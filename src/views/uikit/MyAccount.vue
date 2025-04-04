@@ -10,12 +10,12 @@ import Notification from './Notification.vue';
             <span class="text-xl font-bold">Account Management</span>
         </div>
         <div class="col-span-12 xl:col-span-12">
-            <router-link :to="'/news'">
+            <router-link :to="'/newsroom'">
                 <NotificationView />
             </router-link>
         </div>
     </div>
-    <div  v-animateonscroll="{ enterClass: 'animate-fadein', leaveClass: 'animate-fadeout'}" class="card animate-duration-500 animate-ease-in-out">
+    <div  v-animateonscroll="{ enterClass: 'animate-fadein', leaveClass: 'animate-fadeout'}" class="card animate-duration-500 animate-ease-in-out shadow-lg rounded-lg">
         <Tabs value="0">
             <TabList>
                 <Tab value="0" as="div" class="flex items-center gap-2">

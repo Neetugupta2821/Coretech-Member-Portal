@@ -1,7 +1,7 @@
 <script setup>
 </script>
 <template>
-    <div class="grid grid-cols-12 gap-8">
+    <div class="grid grid-cols-12 gap-8 shadow-lg rounded-lg cursor-pointer">
         <div class="col-span-12 xl:col-span-12">
             <div class="notify font-bold mb-0 bg-cyan-600/10 dark:bg-cyan-600/10 ">
                 <div class="flex justify-between mb-0">

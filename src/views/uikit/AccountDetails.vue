@@ -3,32 +3,41 @@ import { onMounted, ref } from 'vue';
 import axios from 'axios';
 import { baseUrl } from '@/Api/BaseUrl';
 const accessToken = localStorage.getItem('access_token');
+const firstname = ref(localStorage.getItem('firstname'));
+const lastname = ref(localStorage.getItem('lastname'));
+const company = ref(localStorage.getItem('company'));
+const street = ref(localStorage.getItem('street'));
+const phone = ref(localStorage.getItem('phone'));
+const zipcode = ref(localStorage.getItem('zipcode'));
+const city = ref(localStorage.getItem('city'));
+const country = ref(localStorage.getItem('country'));
+const vatid = ref(localStorage.getItem('vatid'));
 
-const formData = ref({
-    company: "",
-    vatid: "",
-    firstname: "",
-    lastname: "",
-    street: "",
-    city: "",
-    zipcode: "",
-    country: "",
-})
-const fetchUserData = async () => {
-    try {
-        const response = await axios.get(`${baseUrl}my-account/`, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-        });
-        if (response.data.length > 0) {
-            formData.value = response.data[0];
-        }
-    } catch (error) {
-        console.error("Error fetching data:", error);
-    }
-};
-onMounted(fetchUserData)
+// const formData = ref({
+//     company: "",
+//     vatid: "",
+//     firstname: "",
+//     lastname: "",
+//     street: "",
+//     city: "",
+//     zipcode: "",
+//     country: "",
+// })
+// const fetchUserData = async () => {
+//     try {
+//         const response = await axios.get(`${baseUrl}my-account/`, {
+//             headers: {
+//                 Authorization: `Bearer ${accessToken}`,
+//             },
+//         });
+//         if (response.data.length > 0) {
+//             formData.value = response.data[0];
+//         }
+//     } catch (error) {
+//         console.error("Error fetching data:", error);
+//     }
+// };
+// onMounted(fetchUserData);
 
 </script>
 
@@ -38,49 +47,49 @@ onMounted(fetchUserData)
             <div class="col-span-12 lg:col-span-6 xl:col-span-6">
                 <div class="flex flex-col gap-1 ">
                     <label>Company</label>
-                    <InputText type="text" v-model="formData.company" placeholder="Company" disabled />
+                    <InputText type="text" v-model="company" placeholder="Company" disabled />
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-6 xl:col-span-6">
                 <div class="flex flex-col gap-1 ">
                     <label>VAT ID</label>
-                    <InputText type="text" v-model="formData.vatid" placeholder="VAT ID" disabled />
+                    <InputText type="text" v-model="vatid" placeholder="VAT ID" disabled />
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-6 xl:col-span-6">
                 <div class="flex flex-col gap-1 ">
-                    <label>Firstname</label>
-                    <InputText type="text" v-model="formData.firstname" placeholder="Firstname" disabled />
+                    <label>First Name</label>
+                    <InputText type="text" v-model="firstname" placeholder="Firstname" disabled />
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-6 xl:col-span-6">
                 <div class="flex flex-col gap-1 ">
-                    <label>Lastname</label>
-                    <InputText type="text" v-model="formData.lastname" placeholder="Lastname" disabled />
+                    <label>Last Name</label>
+                    <InputText type="text" v-model="lastname" placeholder="Lastname" disabled />
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-4 xl:col-span-4">
                 <div class="flex flex-col gap-1 ">
                     <label>Street</label>
-                    <InputText type="text" v-model="formData.street" placeholder="Street" disabled />
+                    <InputText type="text" v-model="street" placeholder="Street" disabled />
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-4 xl:col-span-4">
                 <div class="flex flex-col gap-1 ">
                     <label>ZIP Code</label>
-                    <InputText type="text" v-model="formData.zipcode" placeholder="ZIP Code" disabled />
+                    <InputText type="text" v-model="zipcode" placeholder="ZIP Code" disabled />
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-4 xl:col-span-4">
                 <div class="flex flex-col gap-1 ">
                     <label>City / Location</label>
-                    <InputText type="text" v-model="formData.city" placeholder="City / Location" disabled />
+                    <InputText type="text" v-model="city" placeholder="City / Location" disabled />
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-12 xl:col-span-12">
                 <div class="flex flex-col gap-1 ">
                     <label>Country</label>
-                    <InputText type="text" v-model="formData.country" placeholder="country" disabled />
+                    <InputText type="text" v-model="country" placeholder="country" disabled />
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-12 xl:col-span-12">
@@ -88,8 +97,11 @@ onMounted(fetchUserData)
                     <div>
                         <span class="block text-large text-muted-color">
                             <i class="pi pi-exclamation-circle"></i> &nbsp;
-                            To change your customer data, please contact our <span class="text-orange-400">customer
-                                service.</span>
+                            To change your customer data, please contact our <span></span>
+                            <router-link :to="'/customer/newticket'" class="text-orange-400">
+                                customer
+                                service.
+                            </router-link>
                         </span>
                     </div>
                 </div>

@@ -7,14 +7,14 @@ const model = ref([
         label: 'Home',
         items: [
             { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' },
-            { label: 'Newsroom', icon: 'pi pi-book', to: '/news' }
+            { label: 'Newsroom', icon: 'pi pi-book', to: '/newsroom' }
         ]
     },
     {
         label: 'Account',
         items: [
-            { label: 'My Account', icon: 'pi pi-fw pi-user', to: '/account' },
-            { label: 'Account Billing', icon: 'pi pi-dollar', to: '/account/credit' },
+            { label: 'My Account', icon: 'pi pi-fw pi-user', to: '/my_account' },
+            { label: 'Account Billing', icon: 'pi pi-dollar', to: '/my_account/account_billing' },
         ]
     },
     {
@@ -22,8 +22,8 @@ const model = ref([
         items: [
             {
                 label: 'Service Overview',
-                icon: 'pi pi-fw pi-globe',
-                to: '/service'
+                icon: 'pi pi-briefcase',
+                to: '/service_overview'
             },
             {
                 label: 'Order a Service',
@@ -42,7 +42,7 @@ const model = ref([
                     {
                         label: 'Service Addons',
                         icon: 'pi pi-plus-circle',
-                        to: '/offer/addon/general'
+                        to: '/offer/addon'
                     }
                 ]
             },
@@ -53,7 +53,7 @@ const model = ref([
         items: [
             {
                 label: 'Network Protection',
-                icon: 'pi pi-cloud',
+                icon: 'pi pi-shield',
                 items: [
                     {
                         label: 'Incidents',
@@ -84,29 +84,29 @@ const model = ref([
                         label: 'Resources',
                         icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            { label: 'Source Prefix Lists', icon: 'pi pi-list', to: '/network/prefixlist' },
-                            { label: 'Geo Definition', icon: 'pi pi-fw pi-bookmark', to: '/network/geodefinition' },
+                            { label: 'Prefix Lists', icon: 'pi pi-list', to: '/network/prefixlist' },
+                            { label: 'Geo Definition', icon: 'pi pi-globe', to: '/network/geodefinition' },
                         ]
                     }
                 ]
             },
             {
                 label: 'Website Protection',
-                icon: 'pi pi-inbox',
+                icon: 'pi pi-desktop',
                 items: [
                     {
                         label: 'Certificates',
-                        icon: 'pi pi-receipt',
+                        icon: 'pi pi-key',
                         to: '/website/certificate'
                     },
                     {
                         label: 'Challenge',
-                        icon: 'pi pi-key',
+                        icon: 'pi pi-shield',
                         to: '/website/challenge'
                     },
                     {
                         label: 'Virtual Host',
-                        icon: 'pi pi-box',
+                        icon: 'pi pi-server',
                         to: '/website/vhost'
                     }
                 ]
@@ -142,91 +142,39 @@ const model = ref([
                 icon: 'pi pi-wave-pulse',
                 items: [
                     {
-                        label: 'About',
-                        icon: 'pi pi-exclamation-circle',
-                        to: '/info/about'
-                    },
-                    {
                         label: 'Wiki',
                         icon: 'pi pi-wave-pulse',
+                        // to: '/info/wiki',
                         url: 'https://wiki.coretech.network/',
                         target: '_blank'
                     },
                     {
                         label: 'Network Status ',
                         icon: 'pi pi-wave-pulse',
+                        // to: '/info/network',
                         url: 'https://status.coretech.network/status/client',
                         target: '_blank'
 
-                    }
+                    },
+                    {
+                        label: 'About',
+                        icon: 'pi pi-exclamation-circle',
+                        to: '/info/about'
+                    },
+                    {
+                        label: 'Term & Conditions',
+                        icon: 'pi pi-file',
+                        to: '/info/term'
+                    },
+                    {
+                        label: 'Privacy & Policy',
+                        icon: 'pi pi-exclamation-circle',
+                        to: '/info/privacy'
+                    },
                 ]
             },
         ]
     },
-    // {
-    //     label: 'Pages',
-    //     icon: 'pi pi-fw pi-briefcase',
-    //     to: '/pages',
-    //     items: [
-    //         {
-    //             label: 'Landing',
-    //             icon: 'pi pi-fw pi-globe',
-    //             to: '/landing'
-    //         },
-    //         {
-    //             label: 'Auth',
-    //             icon: 'pi pi-fw pi-user',
-    //             items: [
-    //                 {
-    //                     label: 'Login',
-    //                     icon: 'pi pi-fw pi-sign-in',
-    //                     to: '/auth/login'
-    //                 },
-    //                 {
-    //                     label: 'Error',
-    //                     icon: 'pi pi-fw pi-times-circle',
-    //                     to: '/auth/error'
-    //                 },
-    //                 {
-    //                     label: 'Access Denied',
-    //                     icon: 'pi pi-fw pi-lock',
-    //                     to: '/auth/access'
-    //                 }
-    //             ]
-    //         },
-    //         {
-    //             label: 'Crud',
-    //             icon: 'pi pi-fw pi-pencil',
-    //             to: '/pages/crud'
-    //         },
-    //         {
-    //             label: 'Not Found',
-    //             icon: 'pi pi-fw pi-exclamation-circle',
-    //             to: '/pages/notfound'
-    //         },
-    //         {
-    //             label: 'Empty',
-    //             icon: 'pi pi-fw pi-circle-off',
-    //             to: '/pages/empty'
-    //         }
-    //     ]
-    // },
-    // {
-    //     label: 'Get Started',
-    //     items: [
-    //         {
-    //             label: 'Documentation',
-    //             icon: 'pi pi-fw pi-book',
-    //             to: '/documentation'
-    //         },
-    //         {
-    //             label: 'View Source',
-    //             icon: 'pi pi-fw pi-github',
-    //             url: 'https://github.com/primefaces/core-tech',
-    //             target: '_blank'
-    //         }
-    //     ]
-    // }
 ]);
 </script>
 
